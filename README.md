@@ -1,6 +1,6 @@
 <p align="center">
     <!-- <img width="200px" src="./.images/tree_core_logo.svg" align="center" alt="Tree Core CPU" /> -->
-    <h2 align="center">TreeCore ASIC: An Universal ASIC Simulation Environment with Iverilog and Vcs</h2>
+    <h2 align="center">TreeCore ASIC: An Universal Simulation and Verification Environment for ASIC</h2>
 </p>
 <p align="center">
     <a href="https://github.com/microdynamics-cpu/tree-core-asic/actions">
