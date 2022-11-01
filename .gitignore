@@ -1,3 +1,5 @@
 .mypy_cache
 ysyx_*.v
 build
+bus
+perip
