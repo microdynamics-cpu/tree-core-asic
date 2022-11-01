@@ -1,12 +1,20 @@
 SIM_TOOL ?= iverilog
 RUN_TOOL ?= vvp
-SIM_OPTIONS := -g2012 -Wall
+SIM_OPTIONS := -g2012 -Wall -s asic_system
 TEST_ARGS ?=
 SIMV_PROG := build/simv
-# TB_LIST := ../filelist/tb.f
-comp:
+
+
+TOP_LIST := ../filelist/top.f
+
+FILE_LIST := -f $(TOP_LIST)
+
+update-filelist:
+	@../script/gen_filelist.py
+
+comp: update-filelist
 	@mkdir -p build
-	${SIM_TOOL} $(SIM_OPTIONS) ../tb/asic_system.v -o $(SIMV_PROG)
+	${SIM_TOOL} $(SIM_OPTIONS) $(FILE_LIST) ../tb/asic_system.v -o $(SIMV_PROG)
 
 run:
 	vvp -l build/run.log -n $(SIMV_PROG) +$(TEST_ARGS) -fst
@@ -14,4 +22,4 @@ run:
 clean:
 	rm -rf build
 
-.PHONY: comp run
+.PHONY: update-filelist comp run
