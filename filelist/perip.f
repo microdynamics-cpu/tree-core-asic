@@ -1,3 +1,11 @@
+../perip/chiplink/rtl/simmem.v
 ../perip/chiplink/rtl/chiplink.v
+../perip/chiplink/rtl/top.v
+../perip/spiFlash/rtl/N25Qxxx.v
+../perip/spi/rtl/spi_top.v
+../perip/spi/rtl/spi_defines.v
+../perip/spi/rtl/spi_clgen.v
+../perip/spi/rtl/spi_flash.v
+../perip/spi/rtl/spi_shift.v
 ../perip/uart/rtl/uart_apb.v
 ../perip/uart/tb/tty.v
