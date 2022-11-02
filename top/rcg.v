@@ -1,6 +1,6 @@
 module rcg (
-    input sys_clk,
-    input sys_rst_n,
+    input  sys_clk,
+    input  sys_rst_n,
     output core_clk,
     output core_rst_n,
     output low_peri_clk,
