@@ -3,3 +3,5 @@ ysyx_*.v
 build
 bus
 perip
+prog
+lib

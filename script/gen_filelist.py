@@ -1,7 +1,7 @@
 #!/bin/python
 import os
 
-filelist_dir = ['cpu', 'top', 'perip']
+filelist_dir = ['cpu', 'top', 'perip', 'ram']
 root_path = os.getcwd() + '/../'
 # print(root_path)
 
