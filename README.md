@@ -15,8 +15,8 @@
     <a href="https://github.com/microdynamics-cpu/tree-core-asic">
       <img src="https://img.shields.io/badge/total%20lines-0k-red?style=flat-square">
     </a>
-    <a href="https://github.com/YosysHQ">
-      <img src="https://img.shields.io/badge/toolchain-kicad-red?style=flat-square">
+    <a href="https://github.com/steveicarus/iverilog">
+      <img src="https://img.shields.io/badge/toolchain-iverilog-red?style=flat-square">
   </a>
     <a href="./CONTRIBUTING.md">
       <img src="https://img.shields.io/badge/contribution-welcome-brightgreen?style=flat-square">
@@ -34,6 +34,7 @@
 All of the TreeCore ASIC codes are release under the [GPL-3.0 License](LICENSE).
 
 ## Acknowledgement
-1. [icesugar](https://github.com/wuxx/icesugar)
-
+1. [FuseSoC](https://fusesoc.readthedocs.io/en/stable/user/introduction.html).
+2. [cocotb](https://docs.cocotb.org/en/stable/).
+3. [incore](https://fabrics.readthedocs.io/en/latest/overview.html).
 ## Reference
