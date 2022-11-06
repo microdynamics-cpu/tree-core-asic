@@ -44,6 +44,7 @@ endif
 
 ifeq ($(SIM_TYPE), core)
 FILE_LIST := -f ../filelist/cpu.f
+FILE_LIST += -f ../filelist/ram.f
 endif
 update-filelist:
 	@../script/gen_filelist.py
