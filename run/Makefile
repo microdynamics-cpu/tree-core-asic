@@ -1,13 +1,18 @@
 SIM_TOOL ?= iverilog
 RUN_TOOL ?= vvp
 
+# core, soc
+SIM_TYPE ?= soc
+SIM_TOP := $(SIM_TYPE)_tb
 # WARN_OPTIONS := -Wanachronisms -Wimplicit -Wportbind -Wselect-range -Winfloop
 # WARN_OPTIONS += -Wsensitivity-entire-vector -Wsensitivity-entire-array
 WARN_OPTIONS := -Wall -Winfloop -Wno-timescale
-SIM_OPTIONS := -g2012 -s asic_system $(WARN_OPTIONS)
+SIM_OPTIONS := -g2012 -s $(SIM_TOP) $(WARN_OPTIONS)
 TEST_ARGS ?= default_args
-SIMV_PROG := build/simv
+SIMV_PROG := build/$(SIM_TYPE)/simv
 
+
+ifeq ($(SIM_TYPE), soc)
 FILE_LIST := -f ../filelist/cpu.f
 FILE_LIST += -f ../filelist/perip.f
 FILE_LIST += -f ../filelist/ram.f
@@ -35,19 +40,25 @@ INC_LIST += -I ../bus/nic400/verilog/Axi
 INC_LIST += -I ../bus/nic400/verilog/Axi4PC
 INC_LIST += -I ../bus/nic400/verilog/ApbPC
 INC_LIST += -I ../bus/nic400/verilog/Apb4PC
+endif
 
+ifeq ($(SIM_TYPE), core)
+FILE_LIST := -f ../filelist/cpu.f
+endif
 update-filelist:
 	@../script/gen_filelist.py
 
 comp: update-filelist
-	@mkdir -p build
-	${SIM_TOOL} $(SIM_OPTIONS) $(FILE_LIST) $(INC_LIST) ../tb/asic_system.v -o $(SIMV_PROG)
+	@mkdir -p build/$(SIM_TYPE)
+	${SIM_TOOL} $(SIM_OPTIONS) $(FILE_LIST) $(INC_LIST) ../tb/$(SIM_TOP).v -o $(SIMV_PROG)
 
 run: comp
-	@touch build/init_mem.bin.txt
-	vvp -l build/run.log -n $(SIMV_PROG) +$(TEST_ARGS) -fst
+ifeq ($(SIM_TYPE), soc)
+	@touch build/$(SIM_TYPE)/init_mem.bin.txt
+endif
+	vvp -l build/$(SIM_TYPE)/run.log -n $(SIMV_PROG) +$(TEST_ARGS) -fst
 
 clean:
 	rm -rf build
 
-.PHONY: update-filelist comp run
+.PHONY: update-filelist comp core-comp run
