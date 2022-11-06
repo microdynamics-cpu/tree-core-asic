@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `include "global_define.v"
 
-module asic_system ();
+module soc_tb ();
 
   reg rst_n;
   reg clk_25m;
@@ -27,8 +27,8 @@ module asic_system ();
   end
 
   initial begin
-    $dumpfile("build/soc.wave");
-    $dumpvars(0, asic_system);
+    $dumpfile("build/soc/soc.wave");
+    $dumpvars(0, soc_tb);
   end
 
 
