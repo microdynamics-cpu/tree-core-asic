@@ -32,73 +32,73 @@ module core_tb ();
   end
 
 
-  //axi cpu to nic400 interconnect
-  wire [  3:0] awid_cpu_axi4_nic400;
-  wire [ 31:0] awaddr_cpu_axi4_nic400;
-  wire [  7:0] awlen_cpu_axi4_nic400;
-  wire [  2:0] awsize_cpu_axi4_nic400;
-  wire [  1:0] awburst_cpu_axi4_nic400;
-  wire         awvalid_cpu_axi4_nic400;
-  wire         awready_cpu_axi4_nic400;
-  wire [ 63:0] wdata_cpu_axi4_nic400;
-  wire [  7:0] wstrb_cpu_axi4_nic400;
-  wire         wlast_cpu_axi4_nic400;
-  wire         wvalid_cpu_axi4_nic400;
-  wire         wready_cpu_axi4_nic400;
-  wire [  2:0] bid_cpu_axi4_nic400;
-  wire [  1:0] bresp_cpu_axi4_nic400;
-  wire         bvalid_cpu_axi4_nic400;
-  wire         bready_cpu_axi4_nic400;
-  wire [  3:0] arid_cpu_axi4_nic400;
-  wire [ 31:0] araddr_cpu_axi4_nic400;
-  wire [  7:0] arlen_cpu_axi4_nic400;
-  wire [  2:0] arsize_cpu_axi4_nic400;
-  wire [  1:0] arburst_cpu_axi4_nic400;
-  wire         arvalid_cpu_axi4_nic400;
-  wire         arready_cpu_axi4_nic400;
-  wire [  2:0] rid_cpu_axi4_nic400;
-  wire [ 63:0] rdata_cpu_axi4_nic400;
-  wire [  1:0] rresp_cpu_axi4_nic400;
-  wire         rlast_cpu_axi4_nic400;
-  wire         rvalid_cpu_axi4_nic400;
-  wire         rready_cpu_axi4_nic400;
+  //axi cpu to bus interconnect
+  wire [  3:0] awid_cpu_to_bus;
+  wire [ 31:0] awaddr_cpu_to_bus;
+  wire [  7:0] awlen_cpu_to_bus;
+  wire [  2:0] awsize_cpu_to_bus;
+  wire [  1:0] awburst_cpu_to_bus;
+  wire         awvalid_cpu_to_bus;
+  wire         awready_cpu_to_bus;
+  wire [ 63:0] wdata_cpu_to_bus;
+  wire [  7:0] wstrb_cpu_to_bus;
+  wire         wlast_cpu_to_bus;
+  wire         wvalid_cpu_to_bus;
+  wire         wready_cpu_to_bus;
+  wire [  2:0] bid_cpu_to_bus;
+  wire [  1:0] bresp_cpu_to_bus;
+  wire         bvalid_cpu_to_bus;
+  wire         bready_cpu_to_bus;
+  wire [  3:0] arid_cpu_to_bus;
+  wire [ 31:0] araddr_cpu_to_bus;
+  wire [  7:0] arlen_cpu_to_bus;
+  wire [  2:0] arsize_cpu_to_bus;
+  wire [  1:0] arburst_cpu_to_bus;
+  wire         arvalid_cpu_to_bus;
+  wire         arready_cpu_to_bus;
+  wire [  2:0] rid_cpu_to_bus;
+  wire [ 63:0] rdata_cpu_to_bus;
+  wire [  1:0] rresp_cpu_to_bus;
+  wire         rlast_cpu_to_bus;
+  wire         rvalid_cpu_to_bus;
+  wire         rready_cpu_to_bus;
 
   //axi dma interconnect to cpu
-  wire [  3:0] awid_dma_axi4_cpu_m;
-  wire [ 31:0] awaddr_dma_axi4_cpu_m;
-  wire [  7:0] awlen_dma_axi4_cpu_m;
-  wire [  2:0] awsize_dma_axi4_cpu_m;
-  wire [  1:0] awburst_dma_axi4_cpu_m;
-  wire         awlock_dma_axi4_cpu_m;
-  wire [  3:0] awcache_dma_axi4_cpu_m;
-  wire [  2:0] awprot_dma_axi4_cpu_m;
-  wire         awvalid_dma_axi4_cpu_m;
-  wire         awready_dma_axi4_cpu_m;
-  wire [ 63:0] wdata_dma_axi4_cpu_m;
-  wire [  7:0] wstrb_dma_axi4_cpu_m;
-  wire         wlast_dma_axi4_cpu_m;
-  wire         wvalid_dma_axi4_cpu_m;
-  wire         wready_dma_axi4_cpu_m;
-  wire [  3:0] bid_dma_axi4_cpu_m;
-  wire [  1:0] bresp_dma_axi4_cpu_m;
-  wire         bvalid_dma_axi4_cpu_m;
-  wire         bready_dma_axi4_cpu_m;
-  wire [  3:0] arid_dma_axi4_cpu_m;
-  wire [ 31:0] araddr_dma_axi4_cpu_m;
-  wire [  7:0] arlen_dma_axi4_cpu_m;
-  wire [  2:0] arsize_dma_axi4_cpu_m;
-  wire [  1:0] arburst_dma_axi4_cpu_m;
-  wire         arlock_dma_axi4_cpu_m;
-  wire [  3:0] arcache_dma_axi4_cpu_m;
-  wire [  2:0] arprot_dma_axi4_cpu_m;
-  wire         arvalid_dma_axi4_cpu_m;
-  wire         arready_dma_axi4_cpu_m;
-  wire [  3:0] rid_dma_axi4_cpu_m;
-  wire [ 63:0] rdata_dma_axi4_cpu_m;
-  wire [  1:0] rresp_dma_axi4_cpu_m;
-  wire         rlast_dma_axi4_cpu_m;
-  wire         rvalid_dma_axi4_cpu_m;
-  wire         rready_dma_axi4_cpu_m;
+  wire [  3:0] awid_dma_from_bus;
+  wire [ 31:0] awaddr_dma_from_bus;
+  wire [  7:0] awlen_dma_from_bus;
+  wire [  2:0] awsize_dma_from_bus;
+  wire [  1:0] awburst_dma_from_bus;
+  wire         awlock_dma_from_bus;
+  wire [  3:0] awcache_dma_from_bus;
+  wire [  2:0] awprot_dma_from_bus;
+  wire         awvalid_dma_from_bus;
+  wire         awready_dma_from_bus;
+  wire [ 63:0] wdata_dma_from_bus;
+  wire [  7:0] wstrb_dma_from_bus;
+  wire         wlast_dma_from_bus;
+  wire         wvalid_dma_from_bus;
+  wire         wready_dma_from_bus;
+  wire [  3:0] bid_dma_from_bus;
+  wire [  1:0] bresp_dma_from_bus;
+  wire         bvalid_dma_from_bus;
+  wire         bready_dma_from_bus;
+  wire [  3:0] arid_dma_from_bus;
+  wire [ 31:0] araddr_dma_from_bus;
+  wire [  7:0] arlen_dma_from_bus;
+  wire [  2:0] arsize_dma_from_bus;
+  wire [  1:0] arburst_dma_from_bus;
+  wire         arlock_dma_from_bus;
+  wire [  3:0] arcache_dma_from_bus;
+  wire [  2:0] arprot_dma_from_bus;
+  wire         arvalid_dma_from_bus;
+  wire         arready_dma_from_bus;
+  wire [  3:0] rid_dma_from_bus;
+  wire [ 63:0] rdata_dma_from_bus;
+  wire [  1:0] rresp_dma_from_bus;
+  wire         rlast_dma_from_bus;
+  wire         rvalid_dma_from_bus;
+  wire         rready_dma_from_bus;
 
   // cpu share sram interface
   wire [  5:0] sram0_addr;
@@ -162,65 +162,65 @@ module core_tb ();
       .reset       (~rst_n),
       .io_interrupt(1'b0),
 
-      .io_master_awready(awready_cpu_axi4_nic400),
-      .io_master_awvalid(awvalid_cpu_axi4_nic400),
-      .io_master_awaddr (awaddr_cpu_axi4_nic400),
-      .io_master_awid   (awid_cpu_axi4_nic400),
-      .io_master_awlen  (awlen_cpu_axi4_nic400),
-      .io_master_awsize (awsize_cpu_axi4_nic400),
-      .io_master_awburst(awburst_cpu_axi4_nic400),
-      .io_master_wready (wready_cpu_axi4_nic400),
-      .io_master_wvalid (wvalid_cpu_axi4_nic400),
-      .io_master_wdata  (wdata_cpu_axi4_nic400),
-      .io_master_wstrb  (wstrb_cpu_axi4_nic400),
-      .io_master_wlast  (wlast_cpu_axi4_nic400),
-      .io_master_bready (bready_cpu_axi4_nic400),
-      .io_master_bvalid (bvalid_cpu_axi4_nic400),
-      .io_master_bresp  (bresp_cpu_axi4_nic400),
-      .io_master_bid    ({1'b0, bid_cpu_axi4_nic400}),
-      .io_master_arready(arready_cpu_axi4_nic400),
-      .io_master_arvalid(arvalid_cpu_axi4_nic400),
-      .io_master_araddr (araddr_cpu_axi4_nic400),
-      .io_master_arid   (arid_cpu_axi4_nic400),
-      .io_master_arlen  (arlen_cpu_axi4_nic400),
-      .io_master_arsize (arsize_cpu_axi4_nic400),
-      .io_master_arburst(arburst_cpu_axi4_nic400),
-      .io_master_rready (rready_cpu_axi4_nic400),
-      .io_master_rvalid (rvalid_cpu_axi4_nic400),
-      .io_master_rresp  (rresp_cpu_axi4_nic400),
-      .io_master_rdata  (rdata_cpu_axi4_nic400),
-      .io_master_rlast  (rlast_cpu_axi4_nic400),
-      .io_master_rid    ({1'b0, rid_cpu_axi4_nic400}),
+      .io_master_awready(awready_cpu_to_bus),
+      .io_master_awvalid(awvalid_cpu_to_bus),
+      .io_master_awaddr (awaddr_cpu_to_bus),
+      .io_master_awid   (awid_cpu_to_bus),
+      .io_master_awlen  (awlen_cpu_to_bus),
+      .io_master_awsize (awsize_cpu_to_bus),
+      .io_master_awburst(awburst_cpu_to_bus),
+      .io_master_wready (wready_cpu_to_bus),
+      .io_master_wvalid (wvalid_cpu_to_bus),
+      .io_master_wdata  (wdata_cpu_to_bus),
+      .io_master_wstrb  (wstrb_cpu_to_bus),
+      .io_master_wlast  (wlast_cpu_to_bus),
+      .io_master_bready (bready_cpu_to_bus),
+      .io_master_bvalid (bvalid_cpu_to_bus),
+      .io_master_bresp  (bresp_cpu_to_bus),
+      .io_master_bid    ({1'b0, bid_cpu_to_bus}),
+      .io_master_arready(arready_cpu_to_bus),
+      .io_master_arvalid(arvalid_cpu_to_bus),
+      .io_master_araddr (araddr_cpu_to_bus),
+      .io_master_arid   (arid_cpu_to_bus),
+      .io_master_arlen  (arlen_cpu_to_bus),
+      .io_master_arsize (arsize_cpu_to_bus),
+      .io_master_arburst(arburst_cpu_to_bus),
+      .io_master_rready (rready_cpu_to_bus),
+      .io_master_rvalid (rvalid_cpu_to_bus),
+      .io_master_rresp  (rresp_cpu_to_bus),
+      .io_master_rdata  (rdata_cpu_to_bus),
+      .io_master_rlast  (rlast_cpu_to_bus),
+      .io_master_rid    ({1'b0, rid_cpu_to_bus}),
 
-      .io_slave_awready(awready_dma_axi4_cpu_m),
-      .io_slave_awvalid(awvalid_dma_axi4_cpu_m),
-      .io_slave_awaddr (awaddr_dma_axi4_cpu_m),
-      .io_slave_awid   (awid_dma_axi4_cpu_m),
-      .io_slave_awlen  (awlen_dma_axi4_cpu_m),
-      .io_slave_awsize (awsize_dma_axi4_cpu_m),
-      .io_slave_awburst(awburst_dma_axi4_cpu_m),
-      .io_slave_wready (wready_dma_axi4_cpu_m),
-      .io_slave_wvalid (wvalid_dma_axi4_cpu_m),
-      .io_slave_wdata  (wdata_dma_axi4_cpu_m),
-      .io_slave_wstrb  (wstrb_dma_axi4_cpu_m),
-      .io_slave_wlast  (wlast_dma_axi4_cpu_m),
-      .io_slave_bready (bready_dma_axi4_cpu_m),
-      .io_slave_bvalid (bvalid_dma_axi4_cpu_m),
-      .io_slave_bresp  (bresp_dma_axi4_cpu_m),
-      .io_slave_bid    (bid_dma_axi4_cpu_m),
-      .io_slave_arready(arready_dma_axi4_cpu_m),
-      .io_slave_arvalid(arvalid_dma_axi4_cpu_m),
-      .io_slave_araddr (araddr_dma_axi4_cpu_m),
-      .io_slave_arid   (arid_dma_axi4_cpu_m),
-      .io_slave_arlen  (arlen_dma_axi4_cpu_m),
-      .io_slave_arsize (arsize_dma_axi4_cpu_m),
-      .io_slave_arburst(arburst_dma_axi4_cpu_m),
-      .io_slave_rready (rready_dma_axi4_cpu_m),
-      .io_slave_rvalid (rvalid_dma_axi4_cpu_m),
-      .io_slave_rresp  (rresp_dma_axi4_cpu_m),
-      .io_slave_rdata  (rdata_dma_axi4_cpu_m),
-      .io_slave_rlast  (rlast_dma_axi4_cpu_m),
-      .io_slave_rid    (rid_dma_axi4_cpu_m),
+      .io_slave_awready(awready_dma_from_bus),
+      .io_slave_awvalid(awvalid_dma_from_bus),
+      .io_slave_awaddr (awaddr_dma_from_bus),
+      .io_slave_awid   (awid_dma_from_bus),
+      .io_slave_awlen  (awlen_dma_from_bus),
+      .io_slave_awsize (awsize_dma_from_bus),
+      .io_slave_awburst(awburst_dma_from_bus),
+      .io_slave_wready (wready_dma_from_bus),
+      .io_slave_wvalid (wvalid_dma_from_bus),
+      .io_slave_wdata  (wdata_dma_from_bus),
+      .io_slave_wstrb  (wstrb_dma_from_bus),
+      .io_slave_wlast  (wlast_dma_from_bus),
+      .io_slave_bready (bready_dma_from_bus),
+      .io_slave_bvalid (bvalid_dma_from_bus),
+      .io_slave_bresp  (bresp_dma_from_bus),
+      .io_slave_bid    (bid_dma_from_bus),
+      .io_slave_arready(arready_dma_from_bus),
+      .io_slave_arvalid(arvalid_dma_from_bus),
+      .io_slave_araddr (araddr_dma_from_bus),
+      .io_slave_arid   (arid_dma_from_bus),
+      .io_slave_arlen  (arlen_dma_from_bus),
+      .io_slave_arsize (arsize_dma_from_bus),
+      .io_slave_arburst(arburst_dma_from_bus),
+      .io_slave_rready (rready_dma_from_bus),
+      .io_slave_rvalid (rvalid_dma_from_bus),
+      .io_slave_rresp  (rresp_dma_from_bus),
+      .io_slave_rdata  (rdata_dma_from_bus),
+      .io_slave_rlast  (rlast_dma_from_bus),
+      .io_slave_rid    (rid_dma_from_bus),
 
       .io_sram0_addr (sram0_addr),
       .io_sram0_cen  (sram0_cen),
