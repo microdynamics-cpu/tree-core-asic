@@ -353,4 +353,39 @@ module core_tb ();
       .Q   (sram7_rdata)
   );
 
+  //sim mem
+  SimAXIMem u_simmem (
+      .clock            (clk_25m),
+      .reset            (~rst_n),
+      .io_axi4_0_awready(io_axi4_0_awready),
+      .io_axi4_0_awvalid(io_axi4_0_awvalid),
+      .io_axi4_0_awid   (io_axi4_0_awid),
+      .io_axi4_0_awaddr (io_axi4_0_awaddr[30:0]),
+      .io_axi4_0_awlen  (io_axi4_0_awlen),
+      .io_axi4_0_awsize (io_axi4_0_awsize),
+      .io_axi4_0_awburst(io_axi4_0_awburst),
+      .io_axi4_0_wready (io_axi4_0_wready),
+      .io_axi4_0_wvalid (io_axi4_0_wvalid),
+      .io_axi4_0_wdata  (io_axi4_0_wdata),
+      .io_axi4_0_wstrb  (io_axi4_0_wstrb),
+      .io_axi4_0_wlast  (io_axi4_0_wlast),
+      .io_axi4_0_bready (io_axi4_0_bready),
+      .io_axi4_0_bvalid (io_axi4_0_bvalid),
+      .io_axi4_0_bid    (io_axi4_0_bid),
+      .io_axi4_0_bresp  (io_axi4_0_bresp),
+      .io_axi4_0_arready(io_axi4_0_arready),
+      .io_axi4_0_arvalid(io_axi4_0_arvalid),
+      .io_axi4_0_arid   (io_axi4_0_arid),
+      .io_axi4_0_araddr (io_axi4_0_araddr[30:0]),
+      .io_axi4_0_arlen  (io_axi4_0_arlen),
+      .io_axi4_0_arsize (io_axi4_0_arsize),
+      .io_axi4_0_arburst(io_axi4_0_arburst),
+      .io_axi4_0_rready (io_axi4_0_rready),
+      .io_axi4_0_rvalid (io_axi4_0_rvalid),
+      .io_axi4_0_rid    (io_axi4_0_rid),
+      .io_axi4_0_rdata  (io_axi4_0_rdata),
+      .io_axi4_0_rresp  (io_axi4_0_rresp),
+      .io_axi4_0_rlast  (io_axi4_0_rlast)
+  );
+
 endmodule
