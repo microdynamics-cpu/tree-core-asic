@@ -45,7 +45,7 @@ module core_tb ();
   wire         wlast_cpu_to_bus;
   wire         wvalid_cpu_to_bus;
   wire         wready_cpu_to_bus;
-  wire [  2:0] bid_cpu_to_bus;
+  wire [  3:0] bid_cpu_to_bus;
   wire [  1:0] bresp_cpu_to_bus;
   wire         bvalid_cpu_to_bus;
   wire         bready_cpu_to_bus;
@@ -56,7 +56,7 @@ module core_tb ();
   wire [  1:0] arburst_cpu_to_bus;
   wire         arvalid_cpu_to_bus;
   wire         arready_cpu_to_bus;
-  wire [  2:0] rid_cpu_to_bus;
+  wire [  3:0] rid_cpu_to_bus;
   wire [ 63:0] rdata_cpu_to_bus;
   wire [  1:0] rresp_cpu_to_bus;
   wire         rlast_cpu_to_bus;
@@ -177,7 +177,7 @@ module core_tb ();
       .io_master_bready (bready_cpu_to_bus),
       .io_master_bvalid (bvalid_cpu_to_bus),
       .io_master_bresp  (bresp_cpu_to_bus),
-      .io_master_bid    ({1'b0, bid_cpu_to_bus}),
+      .io_master_bid    (bid_cpu_to_bus),
       .io_master_arready(arready_cpu_to_bus),
       .io_master_arvalid(arvalid_cpu_to_bus),
       .io_master_araddr (araddr_cpu_to_bus),
@@ -190,7 +190,7 @@ module core_tb ();
       .io_master_rresp  (rresp_cpu_to_bus),
       .io_master_rdata  (rdata_cpu_to_bus),
       .io_master_rlast  (rlast_cpu_to_bus),
-      .io_master_rid    ({1'b0, rid_cpu_to_bus}),
+      .io_master_rid    (rid_cpu_to_bus),
 
       .io_slave_awready(awready_dma_from_bus),
       .io_slave_awvalid(awvalid_dma_from_bus),
@@ -353,39 +353,36 @@ module core_tb ();
       .Q   (sram7_rdata)
   );
 
-  //sim mem
-  SimAXIMem u_simmem (
-      .clock            (clk_25m),
-      .reset            (~rst_n),
-      .io_axi4_0_awready(io_axi4_0_awready),
-      .io_axi4_0_awvalid(io_axi4_0_awvalid),
-      .io_axi4_0_awid   (io_axi4_0_awid),
-      .io_axi4_0_awaddr (io_axi4_0_awaddr[30:0]),
-      .io_axi4_0_awlen  (io_axi4_0_awlen),
-      .io_axi4_0_awsize (io_axi4_0_awsize),
-      .io_axi4_0_awburst(io_axi4_0_awburst),
-      .io_axi4_0_wready (io_axi4_0_wready),
-      .io_axi4_0_wvalid (io_axi4_0_wvalid),
-      .io_axi4_0_wdata  (io_axi4_0_wdata),
-      .io_axi4_0_wstrb  (io_axi4_0_wstrb),
-      .io_axi4_0_wlast  (io_axi4_0_wlast),
-      .io_axi4_0_bready (io_axi4_0_bready),
-      .io_axi4_0_bvalid (io_axi4_0_bvalid),
-      .io_axi4_0_bid    (io_axi4_0_bid),
-      .io_axi4_0_bresp  (io_axi4_0_bresp),
-      .io_axi4_0_arready(io_axi4_0_arready),
-      .io_axi4_0_arvalid(io_axi4_0_arvalid),
-      .io_axi4_0_arid   (io_axi4_0_arid),
-      .io_axi4_0_araddr (io_axi4_0_araddr[30:0]),
-      .io_axi4_0_arlen  (io_axi4_0_arlen),
-      .io_axi4_0_arsize (io_axi4_0_arsize),
-      .io_axi4_0_arburst(io_axi4_0_arburst),
-      .io_axi4_0_rready (io_axi4_0_rready),
-      .io_axi4_0_rvalid (io_axi4_0_rvalid),
-      .io_axi4_0_rid    (io_axi4_0_rid),
-      .io_axi4_0_rdata  (io_axi4_0_rdata),
-      .io_axi4_0_rresp  (io_axi4_0_rresp),
-      .io_axi4_0_rlast  (io_axi4_0_rlast)
+  axi4_mem u_axi_mem (
+      .io_slave_awid   (awid_cpu_to_bus),
+      .io_slave_awaddr (awaddr_cpu_to_bus),
+      .io_slave_awlen  (awlen_cpu_to_bus),
+      .io_slave_awsize (awsize_cpu_to_bus),
+      .io_slave_awburst(awburst_cpu_to_bus),
+      .io_slave_awvalid(awvalid_cpu_to_bus),
+      .io_slave_awready(awready_cpu_to_bus),
+      .io_slave_wdata  (wdata_cpu_to_bus),
+      .io_slave_wstrb  (wstrb_cpu_to_bus),
+      .io_slave_wlast  (wlast_cpu_to_bus),
+      .io_slave_wvalid (wvalid_cpu_to_bus),
+      .io_slave_wready (wready_cpu_to_bus),
+      .io_slave_bid    (bid_cpu_to_bus),
+      .io_slave_bresp  (bresp_cpu_to_bus),
+      .io_slave_bvalid (bvalid_cpu_to_bus),
+      .io_slave_bready (bready_cpu_to_bus),
+      .io_slave_arid   (arid_cpu_to_bus),
+      .io_slave_araddr (araddr_cpu_to_bus),
+      .io_slave_arlen  (arlen_cpu_to_bus),
+      .io_slave_arsize (arsize_cpu_to_bus),
+      .io_slave_arburst(arburst_cpu_to_bus),
+      .io_slave_arvalid(arvalid_cpu_to_bus),
+      .io_slave_arready(arready_cpu_to_bus),
+      .io_slave_rid    (rid_cpu_to_bus),
+      .io_slave_rdata  (rdata_cpu_to_bus),
+      .io_slave_rresp  (rresp_cpu_to_bus),
+      .io_slave_rlast  (rlast_cpu_to_bus),
+      .io_slave_rvalid (rvalid_cpu_to_bus),
+      .io_slave_rready (rready_cpu_to_bus)
   );
 
 endmodule
