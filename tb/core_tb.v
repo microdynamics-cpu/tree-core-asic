@@ -22,7 +22,7 @@ module core_tb ();
     end else if ($test$plusargs("default_args")) begin
       $display("=========sim default args===========");
       $display("sim 400ns");
-      #400 $finish;
+      #4000 $finish;
     end
   end
 
@@ -354,6 +354,8 @@ module core_tb ();
   );
 
   axi4_mem u_axi_mem (
+      .clock           (clk_25m),
+      .rst_n           (rst_n),
       .io_slave_awid   (awid_cpu_to_bus),
       .io_slave_awaddr (awaddr_cpu_to_bus),
       .io_slave_awlen  (awlen_cpu_to_bus),

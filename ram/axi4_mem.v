@@ -1,4 +1,6 @@
 module axi4_mem (
+    input         clock,
+    input         rst_n,
     output        io_slave_awready,
     input         io_slave_awvalid,
     input  [31:0] io_slave_awaddr,
@@ -29,5 +31,18 @@ module axi4_mem (
     output        io_slave_rlast,
     output [ 3:0] io_slave_rid
 );
+
+  reg [63:0] mem[0:8];
+
+  initial begin
+    $readmemh("init_ram.mem", mem);
+  end
+
+  assign io_slave_arready = 1'b1;
+  assign io_slave_rvalid  = 1'b1;
+  assign io_slave_rresp   = 1'b1;
+  assign io_slave_rdata   = 64'h00000413;
+  assign io_slave_rlast   = 1'b1;
+  assign io_slave_rid     = 1'b0;
 
 endmodule
