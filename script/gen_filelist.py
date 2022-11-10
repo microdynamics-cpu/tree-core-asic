@@ -1,7 +1,7 @@
 #!/bin/python
 import os
 
-filelist_dir = ['cpu', 'top', 'perip', 'ram']
+filelist_dir = ['cpu', 'top', 'perip', 'ram', 'rcg']
 root_path = os.getcwd() + '/../'
 # print(root_path)
 
@@ -17,7 +17,7 @@ def get_filelist(path, ptype='', dn=''):
 
 
 def write_filelist(path, flist, dn):
-    with open(path + 'filelist/' + dn + '.f', 'w') as f:
+    with open(path + 'filelist/' + dn + '.f', 'w', encoding='utf-8') as f:
         for fn in flist:
             if fn[2].endswith('.v'):
                 if dn == 'perip':
