@@ -1,0 +1,22 @@
+# this is a config for soc generator.
+
+title = "SoC Inst Name"
+
+[core]
+name = "ysyx_xxxxxx"
+
+[rcg]
+pll_num = 2
+
+[bus]
+mst_num = 2
+slv_num = 3
+
+[ip]
+
+[ip.spi]
+repo = "a"
+tag = "fec2324231111"
+[ip.uart]
+repo = "b"
+tag = "fedddddddddddd"

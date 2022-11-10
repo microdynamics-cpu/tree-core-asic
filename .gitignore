@@ -5,3 +5,5 @@ bus
 perip
 prog
 lib
+*.toml
+!soc_config_template.toml
