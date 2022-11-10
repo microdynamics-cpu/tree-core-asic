@@ -1,5 +1,8 @@
 
+soc:
+	@./script/gen_soc.py
+
 format:
 	@script/format_code.py
 
-.PHONY: format
+.PHONY: soc format
