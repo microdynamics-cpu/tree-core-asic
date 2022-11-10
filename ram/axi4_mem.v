@@ -32,12 +32,24 @@ module axi4_mem (
     output [ 3:0] io_slave_rid
 );
 
-  reg [63:0] mem[0:8];
-
+  reg [7:0] mem [0:2000];
+  reg [8:0] cnt;
   initial begin
     $readmemh("init_ram.mem", mem);
   end
 
+  always @(posedge clock or negedge rst_n) begin
+    if (!rst_n) begin
+      cnt <= 63'd0;
+    end else if (cnt <= 200) begin
+      $display("mem[%0d]: %h", cnt, mem[cnt]);
+      if ((cnt + 1'd1) % 4 == 0 && cnt > 0) begin
+        $display("addr: %h inst: %h", 'h3000_0000 + (cnt -3), {mem[cnt], mem[cnt-1], mem[cnt-2], mem[cnt-3]});
+      end
+
+      cnt <= cnt + 1'd1;
+    end
+  end
   assign io_slave_arready = 1'b1;
   assign io_slave_rvalid  = 1'b1;
   assign io_slave_rresp   = 1'b1;

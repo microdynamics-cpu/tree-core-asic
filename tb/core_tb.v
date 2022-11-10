@@ -22,7 +22,7 @@ module core_tb ();
     end else if ($test$plusargs("default_args")) begin
       $display("=========sim default args===========");
       $display("sim 400ns");
-      #4000 $finish;
+      #11000 $finish;
     end
   end
 
