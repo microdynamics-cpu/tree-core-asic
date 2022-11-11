@@ -1,9 +1,13 @@
 .mypy_cache
 ysyx_*.v
 build
+amba
 bus
 perip
 prog
 lib
+simv
+*.out
+*.log
 *.toml
 !soc_config_template.toml
