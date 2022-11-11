@@ -22,7 +22,8 @@ module soc_tb ();
       #4000 $finish;
     end else if ($test$plusargs("default_args")) begin
       $display("=========sim default args===========");
-      #80000 $finish;
+      // #40000 $finish;
+      #40000000 $finish;
     end
   end
 

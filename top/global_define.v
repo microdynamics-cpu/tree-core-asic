@@ -42,5 +42,5 @@
 `define PLIC_START 32'h41300000
 `define PLIC_END 32'h413fffff
 
-`define ysyx_210000 5'd1
-`define ysyx_210340 5'd2
+`define ysyx_210000      5'd1
+`define ysyx_210340      5'd2

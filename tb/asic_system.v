@@ -407,7 +407,7 @@ module asic_system ();
 
   initial begin
     // #220000000 $finish;
-    #20000000 $finish;
+    #10000000 $finish;
   end
 
   initial begin
