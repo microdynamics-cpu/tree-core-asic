@@ -8,23 +8,23 @@ except:
     pass
 
 newContent = []
-for line in open("./1.txt", "r"):
-    newContent.append(line)
-newContent.append("\n")
+with open('./1.txt', 'r', encoding='utf-8') as fp:
+    for line in fp:
+        newContent.append(line)
+    newContent.append('\n')
 
-##  2   这一段是不同核的信号
 cores = os.listdir('../cpu')
 cores.sort()
 ID = []
-for i in range(len(cores)):
-    if cores[i][0] != '.':
-        newContent.append('//' + cores[i] + '\n')
-        ID.append(cores[i].replace('ysyx_', '').replace('.v',
-                                                        '').replace('.sv', ''))
-        for line in open("./2.txt", "r"):  #设置文件对象并读取每一行文
-            newContent.append(line.replace("000001", ID[i]))
+for v in cores:
+    if v != '.':
+        newContent.append('//' + v + '\n')
+        tmp = v.replace('ysyx_', '').replace('.v', '').replace('.sv', '')
+        ID.append(tmp)
+        with open('./2.txt', 'r', encoding='utf-8') as fp:
+            for line in fp:
+                newContent.append(line.replace('000001', tmp))
 
-##  3
 AXI4_aw = [('awid', '4'), ('awaddr', '32'), ('awlen', '8'), ('awsize', '3'),
            ('awburst', '2'), ('awvalid', '1'), ('awready', '1')]
 AXI4_w = [('wdata', '64'), ('wstrb', '8'), ('wlast', '1'), ('wvalid', '1'),
@@ -45,7 +45,7 @@ for aw_name in AXI4_aw:
         for core_id in ID:
             newContent.append('assign io_master_awready_' + core_id +
                               ' = core_dip == `ysyx_' + core_id +
-                              " ? awready_master_0 :1'b0;\n")
+                              ' ? awready_master_0 :1\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -59,7 +59,7 @@ for aw_name in AXI4_aw:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_master_' + aw_name[0] + '_' + core_id + ' : ' +
-                    aw_name[1] + "'b0;\n\n")
+                    aw_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -74,7 +74,7 @@ for w_name in AXI4_w:
         for core_id in ID:
             newContent.append('assign io_master_wready_' + core_id +
                               ' = core_dip == `ysyx_' + core_id +
-                              " ? wready_master_0 :1'b0;\n")
+                              ' ? wready_master_0 :1\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -103,7 +103,8 @@ for b_name in AXI4_b:
         for core_id in ID:
             newContent.append('assign io_master_' + b_name[0] + '_' + core_id +
                               ' = core_dip == `ysyx_' + core_id + ' ? ' +
-                              b_name[0] + "_master_0 :" + b_name[1] + "'b0;\n")
+                              b_name[0] + '_master_0 :' + b_name[1] +
+                              '\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -117,7 +118,7 @@ for b_name in AXI4_b:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_master_' + b_name[0] + '_' + core_id + ' : ' +
-                    b_name[1] + "'b0;\n\n")
+                    b_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -132,7 +133,7 @@ for ar_name in AXI4_ar:
         for core_id in ID:
             newContent.append('assign io_master_arready_' + core_id +
                               ' = core_dip == `ysyx_' + core_id +
-                              " ? arready_master_0 :1'b0;\n")
+                              ' ? arready_master_0 :1\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -146,7 +147,7 @@ for ar_name in AXI4_ar:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_master_' + ar_name[0] + '_' + core_id + ' : ' +
-                    ar_name[1] + "'b0;\n\n")
+                    ar_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -161,7 +162,8 @@ for r_name in AXI4_r:
         for core_id in ID:
             newContent.append('assign io_master_' + r_name[0] + '_' + core_id +
                               ' = core_dip == `ysyx_' + core_id + ' ? ' +
-                              r_name[0] + '_master_0 :' + r_name[1] + "'b0;\n")
+                              r_name[0] + '_master_0 :' + r_name[1] +
+                              '\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -175,7 +177,7 @@ for r_name in AXI4_r:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_master_' + r_name[0] + '_' + core_id + ' : ' +
-                    r_name[1] + "'b0;\n\n")
+                    r_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -192,8 +194,8 @@ for idx in number:
             for core_id in ID:
                 newContent.append('assign io_sram' + idx[0] + '_' + r_name[0] +
                                   '_' + core_id + ' = core_dip == `ysyx_' +
-                                  core_id + " ? " + 'sram' + idx[0] + '_' +
-                                  r_name[0] + ":" + r_name[1] + "'b0;\n")
+                                  core_id + ' ? ' + 'sram' + idx[0] + '_' +
+                                  r_name[0] + ':' + r_name[1] + '\'b0;\n')
             newContent.append('\n')
         else:
             for core_id in ID:
@@ -207,7 +209,7 @@ for idx in number:
                     newContent.append(
                         '                      core_dip == `ysyx_' + core_id +
                         ' ? io_sram' + idx[0] + '_' + r_name[0] + '_' +
-                        core_id + ' : ' + r_name[1] + "'b0;\n\n")
+                        core_id + ' : ' + r_name[1] + '\'b0;\n\n')
                     count += 1
                 else:
                     newContent.append(
@@ -217,7 +219,6 @@ for idx in number:
                     count += 1
             count = 0
 
-###DMA
 newContent.append('//-------------------\n')
 newContent.append('//DMA signal\n\n')
 newContent.append('//aw\n')
@@ -228,7 +229,7 @@ for aw_name in AXI4_aw:
             newContent.append('assign io_slave_' + aw_name[0] + '_' + core_id +
                               ' = core_dip == `ysyx_' + core_id + ' ? ' +
                               aw_name[0] + '_frontend :' + aw_name[1] +
-                              "'b0;\n")
+                              '\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -242,7 +243,7 @@ for aw_name in AXI4_aw:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_slave_' + aw_name[0] + '_' + core_id + ' : ' +
-                    aw_name[1] + "'b0;\n\n")
+                    aw_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -256,8 +257,9 @@ for w_name in AXI4_w:
     if w_name[0] != 'wready':
         for core_id in ID:
             newContent.append('assign io_slave_' + w_name[0] + '_' + core_id +
-                              ' = core_dip == `ysyx_' + core_id + " ? " +
-                              w_name[0] + "_frontend :" + w_name[1] + "'b0;\n")
+                              ' = core_dip == `ysyx_' + core_id + ' ? ' +
+                              w_name[0] + '_frontend :' + w_name[1] +
+                              '\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -271,7 +273,7 @@ for w_name in AXI4_w:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_slave_' + w_name[0] + '_' + core_id + ' : ' +
-                    w_name[1] + "'b0;\n\n")
+                    w_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -285,8 +287,9 @@ for b_name in AXI4_b:
     if b_name[0] == 'bready':
         for core_id in ID:
             newContent.append('assign io_slave_' + b_name[0] + '_' + core_id +
-                              ' = core_dip == `ysyx_' + core_id + " ? " +
-                              b_name[0] + "_frontend :" + b_name[1] + "'b0;\n")
+                              ' = core_dip == `ysyx_' + core_id + ' ? ' +
+                              b_name[0] + '_frontend :' + b_name[1] +
+                              '\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -314,9 +317,9 @@ for ar_name in AXI4_ar:
     if ar_name[0] != 'arready':
         for core_id in ID:
             newContent.append('assign io_slave_' + ar_name[0] + '_' + core_id +
-                              ' = core_dip == `ysyx_' + core_id + " ? " +
-                              ar_name[0] + "_frontend :" + ar_name[1] +
-                              "'b0;\n")
+                              ' = core_dip == `ysyx_' + core_id + ' ? ' +
+                              ar_name[0] + '_frontend :' + ar_name[1] +
+                              '\'b0;\n')
         newContent.append('\n')
     else:
         for core_id in ID:
@@ -330,7 +333,7 @@ for ar_name in AXI4_ar:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_slave_' + ar_name[0] + '_' + core_id + ' : ' +
-                    ar_name[1] + "'b0;\n\n")
+                    ar_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -359,7 +362,7 @@ for r_name in AXI4_r:
                 newContent.append(
                     '                          core_dip == `ysyx_' + core_id +
                     ' ? io_slave_' + r_name[0] + '_' + core_id + ' : ' +
-                    r_name[1] + "'b0;\n\n")
+                    r_name[1] + '\'b0;\n\n')
                 count += 1
             else:
                 newContent.append(
@@ -372,19 +375,19 @@ newContent.append('\n')
 newContent.append('//-------------------------------------\n')
 newContent.append('///cpu core\n')
 for core_id in ID:
-    for line in open('./3.txt', 'r'):
-        newContent.append(line.replace('000000', core_id))
-    newContent.append('\n')
-#5
+    with open('./3.txt', 'r', encoding='utf-8') as fp:
+        for line in fp:
+            newContent.append(line.replace('000000', core_id))
+        newContent.append('\n')
+
 newContent.append('\n\n')
-for line in open('./4.txt', 'r'):
-    newContent.append(line)
+with open('./4.txt', 'r', encoding='utf-8') as fp:
+    for line in fp:
+        newContent.append(line)
 
-f = open("../top/soc_top.v", "w")
-f.writelines(newContent)
-f.close()
+with open('../top/soc_top.v', 'w', encoding='utf-8') as fp:
+    fp.writelines(newContent)
 
-## for filelist
 try:
     os.system("rm -f ../filelist/core.f")
 except:
@@ -397,14 +400,13 @@ for root, dirs, files in os.walk('../cpu'):
         if file[0] != '.':
             newContent.append(os.path.join(root, file) + '\n')
 
-f = open("../filelist/core.f", "w")
-f.writelines(newContent)
-f.close()
+with open('../filelist/core.f', 'w', encoding='utf-8') as fp:
+    fp.writelines(newContent)
 
-#core define in global
 temp = []
-for line in open("../top/global_define.v", 'r'):
-    temp.append(line)
+with open('../top/global_define.v', 'r', encoding='utf-8') as fp:
+    for line in fp:
+        temp.append(line)
 newContent = []
 newContent = temp[0:43]
 newContent.append('\n')
@@ -415,5 +417,5 @@ for i in cores:
         newContent.append('`define ' + i.replace('.v', '').replace('.sv', '') +
                           "      5'd" + str(count) + '\n')
 
-f = open('../top/global_define.v', 'w')
-f.writelines(newContent)
+with open('../top/global_define.v', 'w', encoding='utf-8') as fp:
+    fp.writelines(newContent)

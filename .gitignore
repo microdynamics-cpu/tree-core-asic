@@ -10,4 +10,7 @@ simv
 *.out
 *.log
 *.toml
+*.wave
+*.wave.hier
+*.gtkw
 !soc_config_template.toml
