@@ -14,9 +14,14 @@ slv_num = 3
 
 [ip]
 
+# tag and commit field is optional
 [ip.spi]
-repo = "a"
-tag = "fec2324231111"
+repo = "ysyxIP"
+branch = "main"
+tag = 0.02
+commit = "bd8511"
 [ip.uart]
-repo = "b"
-tag = "fedddddddddddd"
+repo = "ysyxIP"
+branch = "main"
+tag = 0.05
+commit = "fb6f01"
