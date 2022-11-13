@@ -13,4 +13,6 @@ simv
 *.wave
 *.wave.hier
 *.gtkw
+*.vmf
+*.txt
 !soc_config_template.toml
