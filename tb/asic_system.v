@@ -411,8 +411,10 @@ module asic_system ();
   end
 
   initial begin
-    $dumpfile("asic_top.wave");
-    $dumpvars(0, asic_system);
+    if ($test$plusargs("dump_fst_wave") || $test$plusargs("dump_vcd_wave")) begin
+      $dumpfile("asic_top.wave");
+      $dumpvars(0, asic_system);
+    end
   end
 endmodule
 

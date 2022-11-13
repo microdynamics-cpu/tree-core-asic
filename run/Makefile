@@ -1,14 +1,20 @@
 SIM_TOOL ?= iverilog
 RUN_TOOL ?= vvp
-
+WAVE_FORMAT ?=
 # core, soc
 SIM_TYPE ?= soc
 SIM_TOP := $(SIM_TYPE)_tb
+TEST_ARGS ?= default_args
+ifeq ($(TEST_ARGS), dump_fst_wave)
+WAVE_FORMAT ?= -fst
+endif
+ifeq ($(TEST_ARGS), dump_vcd_wave)
+WAVE_FORMAT ?= -vcd
+endif
 # WARN_OPTIONS := -Wanachronisms -Wimplicit -Wportbind -Wselect-range -Winfloop
 # WARN_OPTIONS += -Wsensitivity-entire-vector -Wsensitivity-entire-array
 WARN_OPTIONS := -Wall -Winfloop -Wno-timescale
 SIM_OPTIONS := -g2012 -s $(SIM_TOP) $(WARN_OPTIONS)
-TEST_ARGS ?= default_args
 SIMV_PROG := build/$(SIM_TYPE)/simv
 
 
@@ -254,14 +260,16 @@ RTL_CODE :=$(ROOT_PATH)/tb/asic_system.v \
 comp: update-filelist
 	@mkdir -p build/$(SIM_TYPE)
 # ${SIM_TOOL} $(SIM_OPTIONS) $(FILE_LIST) $(INC_LIST) ../tb/$(SIM_TOP).v -o $(SIMV_PROG)
-	${SIM_TOOL} -g2012 -Wall -Winfloop -Wno-timescale -s asic_system ${RTL_CODE} -o simv
+	(${SIM_TOOL} -g2012 -Wall -Winfloop -Wno-timescale -s asic_system ${RTL_CODE} -o simv || exit -1) 2>&1 | tee compile.log
 
 run: comp
 # ifeq ($(SIM_TYPE), soc)
 # 	@touch build/$(SIM_TYPE)/init_mem.bin.txt
 # endif
 # vvp -l build/$(SIM_TYPE)/run.log -n $(SIMV_PROG) +$(TEST_ARGS) -fst
-	vvp -l run.log -n simv -fst
+	@../script/perf.py -f
+	vvp -l run.log -n simv +$(TEST_ARGS) $(WAVE_FORMAT)
+	@../script/perf.py -s
 
 clean:
 	rm -rf build
