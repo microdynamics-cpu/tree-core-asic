@@ -26,7 +26,7 @@ FILE_LIST := -f ../filelist/amba.f
 FILE_LIST += -f ../filelist/cpu.f
 FILE_LIST += -f ../filelist/perip.f
 FILE_LIST += -f ../filelist/top.f
-FILE_LIST += -f ../filelist/lib.f
+FILE_LIST += -f ../filelist/ram.f
 FILE_LIST += -f ../filelist/rcg.f
 
 INC_LIST += -I ../perip/spiFlash/N25Q128A13E_VG12
