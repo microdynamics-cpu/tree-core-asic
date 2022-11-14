@@ -1,24 +1,22 @@
-
 `timescale 1ns / 1ps
-
 `include "global_define.v"
 
-`define BACKEND
 module soc_top (
-    //cpu clock in
+    // cpu clock in
     clk_core,
     rst_core_n,
-    //spiFlash
+    // spiFlash
     clk_peri,
     rst_peri_n,
-    spi_flash_cs,  //0 for spi flash, 1 for spi sdcard
+    // 0 for spi flash, 1 for spi sdcard
+    spi_flash_cs,
     spi_flash_clk,
     spi_flash_mosi,
     spi_flash_miso,
-    //uart
+    // uart
     uart_rx,
     uart_tx,
-    //chiplink
+    // chiplink
     chiplink_rx_clk,
     chiplink_rx_rst,
     chiplink_rx_send,
@@ -29,39 +27,36 @@ module soc_top (
     chiplink_tx_data,
     //cpu core chose
     core_dip,
-    //interrupt
+    // interrupt
     interrupt
 );
 
   input clk_core;
   input rst_core_n;
-  //spi flash
+  // spi flash
   input rst_peri_n;
   input clk_peri;
   output spi_flash_clk;
   output [1:0] spi_flash_cs;
   output spi_flash_mosi;
   input spi_flash_miso;
-  //uart
+  // uart
   input uart_rx;
   output uart_tx;
-  //chiplink
+  // chiplink
   input chiplink_rx_clk;
   input chiplink_rx_rst;
   input chiplink_rx_send;
   input [`chiplink_data_w - 1 : 0] chiplink_rx_data;
-
   output chiplink_tx_clk;
   output chiplink_tx_rst;
   output chiplink_tx_send;
   output [`chiplink_data_w - 1 : 0] chiplink_tx_data;
 
   input [4:0] core_dip;
-
-  //interrupt
   input interrupt;
-  //-------------------------------------
-  //axi cpu
+
+  // axi cpu
   wire [           3:0] awid_master_0;
   wire [          31:0] awaddr_master_0;
   wire [           7:0] awlen_master_0;
@@ -98,7 +93,7 @@ module soc_top (
   wire                  rvalid_master_0;
   wire                  rready_master_0;
 
-  //axi frontend
+  // axi frontend
   wire                  awready_frontend;
   wire                  awvalid_frontend;
   wire [ `A_ADDR_W-1:0] awaddr_frontend;
@@ -141,7 +136,7 @@ module soc_top (
   wire [   `A_ID_W-1:0] rid_frontend;
   wire                  ruser_frontend;
 
-  //axi chiplink to nic400 interconnect  
+  // axi chiplink to nic400 interconnect
   wire [           3:0] awid_frontend_bus;
   wire [          31:0] awaddr_frontend_bus;
   wire [           7:0] awlen_frontend_bus;
@@ -178,7 +173,7 @@ module soc_top (
   wire                  rvalid_frontend_bus;
   wire                  rready_frontend_bus;
 
-  //axi nic400 interconnect to chiplink  
+  // axi nic400 interconnect to chiplink
   wire [           3:0] awid_slave_0;
   wire [          31:0] awaddr_slave_0;
   wire [           7:0] awlen_slave_0;
@@ -215,7 +210,7 @@ module soc_top (
   wire                  rvalid_slave_0;
   wire                  rready_slave_0;
 
-  //APB nic400 interconnect to UART  
+  // APB nic400 interconnect to UART
   wire [          31:0] paddr_slave_1;
   wire                  pselx_slave_1;
   wire                  penable_slave_1;
@@ -227,7 +222,7 @@ module soc_top (
   wire                  pready_slave_1;
   wire                  pslverr_slave_1;
 
-  //APB nic400 interconnect to SPI 
+  // APB nic400 interconnect to SPI
   wire [          31:0] paddr_slave_2;
   wire                  pselx_slave_2;
   wire                  penable_slave_2;
@@ -295,12 +290,9 @@ module soc_top (
   wire [         127:0] sram7_wdata;
   wire [         127:0] sram7_rdata;
 
-  //cpu part signal
-
-  //---------------------------------------------------
-  //different student signal,named with their name in the end   
-
-  //ysyx_210000.v
+  // cpu part signal
+  // different student signal, named with their name in the end
+  // ysyx_210000.v
   wire                  io_master_awready_210000;
   wire                  io_master_awvalid_210000;
   wire [          31:0] io_master_awaddr_210000;
@@ -416,8 +408,7 @@ module soc_top (
   wire [         127:0] io_sram7_wmask_210000;
   wire [         127:0] io_sram7_wdata_210000;
   wire [         127:0] io_sram7_rdata_210000;
-
-  //ysyx_210340.v
+  // ysyx_210340.v
   wire                  io_master_awready_210340;
   wire                  io_master_awvalid_210340;
   wire [          31:0] io_master_awaddr_210340;
@@ -534,8 +525,9 @@ module soc_top (
   wire [         127:0] io_sram7_wdata_210340;
   wire [         127:0] io_sram7_rdata_210340;
 
-  //core select
-  //aw
+
+  // core select
+  // aw
   assign awid_master_0   =  core_dip == `ysyx_210000 ? io_master_awid_210000 :
                           core_dip == `ysyx_210340 ? io_master_awid_210340 : 4'b0;
 
@@ -557,8 +549,7 @@ module soc_top (
   assign io_master_awready_210000 = core_dip == `ysyx_210000 ? awready_master_0 : 1'b0;
   assign io_master_awready_210340 = core_dip == `ysyx_210340 ? awready_master_0 : 1'b0;
 
-
-  //w
+  // w
   assign wdata_master_0   =  core_dip == `ysyx_210000 ? io_master_wdata_210000 :
                           core_dip == `ysyx_210340 ? io_master_wdata_210340 : 64'b0;
 
@@ -574,8 +565,7 @@ module soc_top (
   assign io_master_wready_210000 = core_dip == `ysyx_210000 ? wready_master_0 : 1'b0;
   assign io_master_wready_210340 = core_dip == `ysyx_210340 ? wready_master_0 : 1'b0;
 
-
-  //b
+  // b
   assign io_master_bid_210000 = core_dip == `ysyx_210000 ? bid_master_0 : 4'b0;
   assign io_master_bid_210340 = core_dip == `ysyx_210340 ? bid_master_0 : 4'b0;
 
@@ -588,8 +578,7 @@ module soc_top (
   assign bready_master_0   =  core_dip == `ysyx_210000 ? io_master_bready_210000 :
                           core_dip == `ysyx_210340 ? io_master_bready_210340 : 1'b0;
 
-
-  //ar
+  // ar
   assign arid_master_0   =  core_dip == `ysyx_210000 ? io_master_arid_210000 :
                           core_dip == `ysyx_210340 ? io_master_arid_210340 : 4'b0;
 
@@ -611,8 +600,7 @@ module soc_top (
   assign io_master_arready_210000 = core_dip == `ysyx_210000 ? arready_master_0 : 1'b0;
   assign io_master_arready_210340 = core_dip == `ysyx_210340 ? arready_master_0 : 1'b0;
 
-
-  //r
+  // r
   assign io_master_rid_210000 = core_dip == `ysyx_210000 ? rid_master_0 : 4'b0;
   assign io_master_rid_210340 = core_dip == `ysyx_210340 ? rid_master_0 : 4'b0;
 
@@ -632,7 +620,7 @@ module soc_top (
                           core_dip == `ysyx_210340 ? io_master_rready_210340 : 1'b0;
 
 
-  //sram
+  // sram
   assign sram0_addr  =  core_dip == `ysyx_210000 ? io_sram0_addr_210000 :
                       core_dip == `ysyx_210340 ? io_sram0_addr_210340 : 6'b0;
 
@@ -777,10 +765,8 @@ module soc_top (
   assign io_sram7_rdata_210000 = core_dip == `ysyx_210000 ? sram7_rdata : 128'b0;
   assign io_sram7_rdata_210340 = core_dip == `ysyx_210340 ? sram7_rdata : 128'b0;
 
-  //-------------------
-  //DMA signal
-
-  //aw
+  // DMA signal
+  // aw
   assign io_slave_awid_210000 = core_dip == `ysyx_210000 ? awid_frontend : 4'b0;
   assign io_slave_awid_210340 = core_dip == `ysyx_210340 ? awid_frontend : 4'b0;
 
@@ -802,8 +788,7 @@ module soc_top (
   assign awready_frontend   =  core_dip == `ysyx_210000 ? io_slave_awready_210000 :
                           core_dip == `ysyx_210340 ? io_slave_awready_210340 : 1'b0;
 
-
-  //w
+  // w
   assign io_slave_wdata_210000 = core_dip == `ysyx_210000 ? wdata_frontend : 64'b0;
   assign io_slave_wdata_210340 = core_dip == `ysyx_210340 ? wdata_frontend : 64'b0;
 
@@ -819,8 +804,7 @@ module soc_top (
   assign wready_frontend   =  core_dip == `ysyx_210000 ? io_slave_wready_210000 :
                           core_dip == `ysyx_210340 ? io_slave_wready_210340 : 1'b0;
 
-
-  //b
+  // b
   assign bid_frontend   =  core_dip == `ysyx_210000 ? io_slave_bid_210000 :
                           core_dip == `ysyx_210340 ? io_slave_bid_210340 : 4'b0;
 
@@ -833,8 +817,7 @@ module soc_top (
   assign io_slave_bready_210000 = core_dip == `ysyx_210000 ? bready_frontend : 1'b0;
   assign io_slave_bready_210340 = core_dip == `ysyx_210340 ? bready_frontend : 1'b0;
 
-
-  //ar
+  // ar
   assign io_slave_arid_210000 = core_dip == `ysyx_210000 ? arid_frontend : 4'b0;
   assign io_slave_arid_210340 = core_dip == `ysyx_210340 ? arid_frontend : 4'b0;
 
@@ -856,8 +839,7 @@ module soc_top (
   assign arready_frontend   =  core_dip == `ysyx_210000 ? io_slave_arready_210000 :
                           core_dip == `ysyx_210340 ? io_slave_arready_210340 : 1'b0;
 
-
-  //r
+  // r
   assign rid_frontend   =  core_dip == `ysyx_210000 ? io_slave_rid_210000 :
                           core_dip == `ysyx_210340 ? io_slave_rid_210340 : 4'b0;
 
@@ -877,9 +859,8 @@ module soc_top (
   assign io_slave_rready_210340 = core_dip == `ysyx_210340 ? rready_frontend : 1'b0;
 
 
-  //-------------------------------------
-  ///cpu core
-  ysyx_210000 u0_ysyx_210000 (
+  // cpu core
+  ysyx_210000 u_ysyx_210000 (
       .clock       (clk_core),
       .reset       (~rst_core_n),
       .io_interrupt(interrupt),
@@ -994,7 +975,7 @@ module soc_top (
       .io_sram7_rdata(io_sram7_rdata_210000)
   );
 
-  ysyx_210340 u0_ysyx_210340 (
+  ysyx_210340 u_ysyx_210340 (
       .clock       (clk_core),
       .reset       (~rst_core_n),
       .io_interrupt(interrupt),
@@ -1111,9 +1092,8 @@ module soc_top (
 
 
 
-  ////////////////////////////////////////////////
-  //NIC400 interconnect
-  nic400_bus u0_nic400_bus (
+  // NIC400 interconnect
+  nic400_bus u_nic400_bus (
       // Instance: u_cd_c0, Port: master_0
       .awid_master_0   (awid_master_0),
       .awaddr_master_0 (awaddr_master_0),
@@ -1152,7 +1132,6 @@ module soc_top (
       .rready_master_0 (rready_master_0),
 
       // Instance: u_cd_c0, Port: master_1_m
-
       .awid_master_1_m   (awid_frontend),
       .awaddr_master_1_m (awaddr_frontend),
       .awlen_master_1_m  (awlen_frontend),
@@ -1190,7 +1169,6 @@ module soc_top (
       .rready_master_1_m (rready_frontend),
 
       // Instance: u_cd_c1, Port: master_1_s
-
       .awid_master_1_s   (awid_frontend_bus),
       .awaddr_master_1_s (awaddr_frontend_bus),
       .awlen_master_1_s  (awlen_frontend_bus),
@@ -1228,7 +1206,6 @@ module soc_top (
       .rready_master_1_s (rready_frontend_bus),
 
       // Instance: u_cd_c1, Port: slave_0
-
       .awid_slave_0   (awid_slave_0),
       .awaddr_slave_0 (awaddr_slave_0),
       .awlen_slave_0  (awlen_slave_0),
@@ -1266,7 +1243,6 @@ module soc_top (
       .rready_slave_0 (rready_slave_0),
 
       // Instance: u_cd_c1, Port: slave_1
-
       .paddr_slave_1  (paddr_slave_1),
       .pselx_slave_1  (pselx_slave_1),
       .penable_slave_1(penable_slave_1),
@@ -1279,7 +1255,6 @@ module soc_top (
       .pslverr_slave_1(pslverr_slave_1),
 
       // Instance: u_cd_c1, Port: slave_2
-
       .paddr_slave_2  (paddr_slave_2),
       .pselx_slave_2  (pselx_slave_2),
       .penable_slave_2(penable_slave_2),
@@ -1291,20 +1266,18 @@ module soc_top (
       .pready_slave_2 (pready_slave_2),
       .pslverr_slave_2(pslverr_slave_2),
 
-      //  Non-bus signals
-
+      // Non-bus signals
       .c0clk   (clk_core),
       .c0resetn(rst_core_n),
       .c1clk   (clk_peri),
       .c1clken (1'b1),
       .c1resetn(rst_peri_n)
-
   );
 
-  //cp bridge,link to chiplink "north bridge"
-
-  ChiplinkBridge u0_ChiplinkBridge (
-      .clock                    (clk_peri),              //use dev clock 
+  // cp bridge,link to chiplink "north bridge"
+  ChiplinkBridge u_ChiplinkBridge (
+      // use dev clock 
+      .clock                    (clk_peri),
       .reset                    (~rst_peri_n),
       .fpga_io_c2b_clk          (chiplink_tx_clk),
       .fpga_io_c2b_rst          (chiplink_tx_rst),
@@ -1314,7 +1287,7 @@ module soc_top (
       .fpga_io_b2c_rst          (chiplink_rx_rst),
       .fpga_io_b2c_send         (chiplink_rx_send),
       .fpga_io_b2c_data         (chiplink_rx_data),
-      //mem axi connect
+      // mem axi connect
       .slave_axi4_mem_0_awready (awready_slave_0),
       .slave_axi4_mem_0_awvalid (awvalid_slave_0),
       .slave_axi4_mem_0_awid    (awid_slave_0),
@@ -1344,14 +1317,16 @@ module soc_top (
       .slave_axi4_mem_0_rdata   (rdata_slave_0),
       .slave_axi4_mem_0_rresp   (rresp_slave_0),
       .slave_axi4_mem_0_rlast   (rlast_slave_0),
-      //mmio axi connect
+      // mmio axi connect
       .slave_axi4_mmio_0_awready(),
       .slave_axi4_mmio_0_awvalid(1'b0),
       .slave_axi4_mmio_0_awid   (4'b0),
       .slave_axi4_mmio_0_awaddr (32'b0),
       .slave_axi4_mmio_0_awlen  (8'b0),
-      //.slave_axi4_mmio_0_awsize(),  // this line deleted by yuheng
-      .slave_axi4_mmio_0_awsize (3'b0),                  // this line add by yuheng
+      // this line deleted by yuheng
+      //.slave_axi4_mmio_0_awsize(),
+      // this line add by yuheng
+      .slave_axi4_mmio_0_awsize (3'b0),
       .slave_axi4_mmio_0_awburst(2'b0),
       .slave_axi4_mmio_0_wready (),
       .slave_axi4_mmio_0_wvalid (1'b0),
@@ -1367,8 +1342,10 @@ module soc_top (
       .slave_axi4_mmio_0_arid   (4'b0),
       .slave_axi4_mmio_0_araddr (32'b0),
       .slave_axi4_mmio_0_arlen  (8'b0),
-      //.slave_axi4_mmio_0_arsize(),  // this line deleted by yuheng
-      .slave_axi4_mmio_0_arsize (3'b0),                  // this line add by yuheng
+      // this line deleted by yuheng
+      //.slave_axi4_mmio_0_arsize(),
+      // this line add by yuheng
+      .slave_axi4_mmio_0_arsize (3'b0),
       .slave_axi4_mmio_0_arburst(2'b0),
       .slave_axi4_mmio_0_rready (1'b1),
       .slave_axi4_mmio_0_rvalid (),
@@ -1376,7 +1353,7 @@ module soc_top (
       .slave_axi4_mmio_0_rdata  (),
       .slave_axi4_mmio_0_rresp  (),
       .slave_axi4_mmio_0_rlast  (),
-      //dma axi connect
+      // dma axi connect
       .mem_axi4_0_awready       (awready_frontend_bus),
       .mem_axi4_0_awvalid       (awvalid_frontend_bus),
       .mem_axi4_0_awid          (awid_frontend_bus),
@@ -1408,12 +1385,13 @@ module soc_top (
       .mem_axi4_0_rlast         (rlast_frontend_bus)
   );
 
-  //spi peripheral
+  // spi peripheral
   spi_flash #(
       .flash_addr_start(`SPI_FLASH_START),
       .flash_addr_end  (`SPI_FLASH_END),
-      .spi_cs_num      (2)                  //0 for spi flash, 1 for spi sdcard
-  ) u0_spi_flash (
+      //0 for spi flash, 1 for spi sdcard
+      .spi_cs_num      (2)
+  ) u_spi_flash (
       .pclk   (clk_peri),
       .presetn(rst_peri_n),
       .paddr  ({paddr_slave_2[`P_ADDR_W-1:2], 2'd0}),
@@ -1435,7 +1413,7 @@ module soc_top (
   );
 
   //uart peripheral
-  uart_apb u0_uart_apb (
+  uart_apb u_uart_apb (
       .clk       (clk_peri),
       .resetn    (rst_peri_n),
       .in_psel   (pselx_slave_1),

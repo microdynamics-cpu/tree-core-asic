@@ -1,14 +1,14 @@
 `define UART_PADDR_W 32
-//gpio
+// gpio
 `define GPIO_W 4
-//chiplink
+// chiplink
 `define chiplink_data_w 32
-//APB
+// APB
 `define P_ADDR_W 32
 `define P_DATA_W 32 
 `define P_STRB_W `P_DATA_W/8
 
-//AXI
+// AXI
 //`define A_ID_W    1
 `define A_ID_W 4
 `define A_ADDR_W 32
@@ -25,11 +25,11 @@
 `define A_USER_W 1
 `define A_LAST_W 1
 
-//28bit
+// 28bit
 `define SPI_FLASH_START 32'h30000000
 `define SPI_FLASH_END 32'h3fffffff
 
-//12bit
+// 12bit
 `define UART_START 32'h10000000
 `define UART_END 32'h10000fff
 
