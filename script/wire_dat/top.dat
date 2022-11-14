@@ -1,0 +1,295 @@
+`timescale 1ns / 1ps
+`include "global_define.v"
+
+module soc_top
+(
+  // cpu clock in
+  clk_core,
+  rst_core_n,
+  // spiFlash
+  clk_peri,
+  rst_peri_n,
+  // 0 for spi flash, 1 for spi sdcard
+  spi_flash_cs, 
+  spi_flash_clk,
+  spi_flash_mosi,
+  spi_flash_miso,
+  // uart
+  uart_rx,
+  uart_tx,
+  // chiplink
+  chiplink_rx_clk,
+  chiplink_rx_rst,
+  chiplink_rx_send,
+  chiplink_rx_data,
+  chiplink_tx_clk,
+  chiplink_tx_rst,
+  chiplink_tx_send,
+  chiplink_tx_data,
+  //cpu core chose
+  core_dip,
+  // interrupt
+  interrupt
+);
+
+  input            clk_core;
+  input            rst_core_n;
+  // spi flash
+  input            rst_peri_n;
+  input            clk_peri;
+  output           spi_flash_clk;
+  output [1:0]     spi_flash_cs;
+  output           spi_flash_mosi;
+  input            spi_flash_miso;
+  // uart
+  input            uart_rx;
+  output           uart_tx;
+  // chiplink
+  input                            chiplink_rx_clk;
+  input                            chiplink_rx_rst;
+  input                            chiplink_rx_send;
+  input [`chiplink_data_w - 1 :0]  chiplink_rx_data;
+  output                           chiplink_tx_clk;
+  output                           chiplink_tx_rst;
+  output                           chiplink_tx_send;
+  output [`chiplink_data_w - 1 :0] chiplink_tx_data;
+
+  input [4:0]  core_dip;
+  input interrupt;
+
+  // axi cpu
+  wire  [3:0]  awid_master_0;
+  wire  [31:0] awaddr_master_0;
+  wire  [7:0]  awlen_master_0;
+  wire  [2:0]  awsize_master_0;
+  wire  [1:0]  awburst_master_0;
+  wire         awlock_master_0;
+  wire  [3:0]  awcache_master_0;
+  wire  [2:0]  awprot_master_0;
+  wire         awvalid_master_0;
+  wire         awready_master_0;
+  wire  [63:0] wdata_master_0;
+  wire  [7:0]  wstrb_master_0;
+  wire         wlast_master_0;
+  wire         wvalid_master_0;
+  wire         wready_master_0;
+  wire  [3:0]  bid_master_0;
+  wire  [1:0]  bresp_master_0;
+  wire         bvalid_master_0;
+  wire         bready_master_0;
+  wire  [3:0]  arid_master_0;
+  wire  [31:0] araddr_master_0;
+  wire  [7:0]  arlen_master_0;
+  wire  [2:0]  arsize_master_0;
+  wire  [1:0]  arburst_master_0;
+  wire         arlock_master_0;
+  wire  [3:0]  arcache_master_0;
+  wire  [2:0]  arprot_master_0;
+  wire         arvalid_master_0;
+  wire         arready_master_0;
+  wire  [3:0]  rid_master_0;
+  wire  [63:0] rdata_master_0;
+  wire  [1:0]  rresp_master_0;
+  wire         rlast_master_0;
+  wire         rvalid_master_0;
+  wire         rready_master_0;
+
+  // axi frontend
+  wire                   awready_frontend;
+  wire                   awvalid_frontend;
+  wire  [`A_ADDR_W-1:0]  awaddr_frontend; 
+  wire  [`A_PROT_W-1:0]  awprot_frontend;
+  wire  [`A_ID_W-1:0]    awid_frontend;
+  wire                   awuser_frontend;
+  wire  [`A_LEN_W-1:0]   awlen_frontend;
+  wire  [`A_SIZE_W-1:0]  awsize_frontend;
+  wire  [`A_BURST_W-1:0] awburst_frontend;
+  wire                   awlock_frontend;
+  wire  [`A_CACHE_W-1:0] awcache_frontend;
+  wire  [`A_QOS_W-1:0]   awqos_frontend;
+  wire                   wready_frontend;
+  wire                   wvalid_frontend;
+  wire  [`A_DATA_W-1:0]  wdata_frontend;
+  wire  [`A_STRB_W-1:0]  wstrb_frontend;
+  wire                   wlast_frontend;
+  wire                   bready_frontend;
+  wire                   bvalid_frontend;
+  wire  [`A_RESP_W-1:0]  bresp_frontend;
+  wire  [`A_ID_W-1:0]    bid_frontend;
+  wire                   buser_frontend;
+  wire                   arready_frontend;
+  wire                   arvalid_frontend;
+  wire  [`A_ADDR_W-1:0]  araddr_frontend;
+  wire  [`A_PROT_W-1:0]  arprot_frontend;
+  wire  [`A_ID_W-1:0]    arid_frontend;
+  wire                   aruser_frontend;
+  wire  [`A_LEN_W-1:0]   arlen_frontend;
+  wire  [`A_SIZE_W-1:0]  arsize_frontend;
+  wire  [`A_BURST_W-1:0] arburst_frontend;
+  wire                   arlock_frontend;
+  wire  [`A_CACHE_W-1:0] arcache_frontend;
+  wire  [`A_QOS_W-1:0]   arqos_frontend;
+  wire                   rready_frontend;
+  wire                   rvalid_frontend;
+  wire  [`A_RESP_W-1:0]  rresp_frontend;
+  wire  [`A_DATA_W-1:0]  rdata_frontend;
+  wire                   rlast_frontend;
+  wire  [`A_ID_W-1:0]    rid_frontend;
+  wire                   ruser_frontend;
+
+  // axi chiplink to nic400 interconnect
+  wire  [3:0]  awid_frontend_bus;
+  wire  [31:0] awaddr_frontend_bus;
+  wire  [7:0]  awlen_frontend_bus;
+  wire  [2:0]  awsize_frontend_bus;
+  wire  [1:0]  awburst_frontend_bus;
+  wire         awlock_frontend_bus;
+  wire  [3:0]  awcache_frontend_bus;
+  wire  [2:0]  awprot_frontend_bus;
+  wire         awvalid_frontend_bus;
+  wire         awready_frontend_bus;
+  wire  [63:0] wdata_frontend_bus;
+  wire  [7:0]  wstrb_frontend_bus;
+  wire         wlast_frontend_bus;
+  wire         wvalid_frontend_bus;
+  wire         wready_frontend_bus;
+  wire  [3:0]  bid_frontend_bus;
+  wire  [1:0]  bresp_frontend_bus;
+  wire         bvalid_frontend_bus;
+  wire         bready_frontend_bus;
+  wire  [3:0]  arid_frontend_bus;
+  wire  [31:0] araddr_frontend_bus;
+  wire  [7:0]  arlen_frontend_bus;
+  wire  [2:0]  arsize_frontend_bus;
+  wire  [1:0]  arburst_frontend_bus;
+  wire         arlock_frontend_bus;
+  wire  [3:0]  arcache_frontend_bus;
+  wire  [2:0]  arprot_frontend_bus;
+  wire         arvalid_frontend_bus;
+  wire         arready_frontend_bus;
+  wire  [3:0]  rid_frontend_bus;
+  wire  [63:0] rdata_frontend_bus;
+  wire  [1:0]  rresp_frontend_bus;
+  wire         rlast_frontend_bus;
+  wire         rvalid_frontend_bus;
+  wire         rready_frontend_bus;
+
+  // axi nic400 interconnect to chiplink
+  wire [3:0]  awid_slave_0;
+  wire [31:0] awaddr_slave_0;
+  wire [7:0]  awlen_slave_0;
+  wire [2:0]  awsize_slave_0;
+  wire [1:0]  awburst_slave_0;
+  wire        awlock_slave_0;
+  wire [3:0]  awcache_slave_0;
+  wire [2:0]  awprot_slave_0;
+  wire        awvalid_slave_0;
+  wire        awready_slave_0;
+  wire [63:0] wdata_slave_0;
+  wire [7:0]  wstrb_slave_0;
+  wire        wlast_slave_0;
+  wire        wvalid_slave_0;
+  wire        wready_slave_0;
+  wire [3:0]  bid_slave_0;
+  wire [1:0]  bresp_slave_0;
+  wire        bvalid_slave_0;
+  wire        bready_slave_0;
+  wire [3:0]  arid_slave_0;
+  wire [31:0] araddr_slave_0;
+  wire [7:0]  arlen_slave_0;
+  wire [2:0]  arsize_slave_0;
+  wire [1:0]  arburst_slave_0;
+  wire        arlock_slave_0;
+  wire [3:0]  arcache_slave_0;
+  wire [2:0]  arprot_slave_0;
+  wire        arvalid_slave_0;
+  wire        arready_slave_0;
+  wire [3:0]  rid_slave_0;
+  wire [63:0] rdata_slave_0;
+  wire [1:0]  rresp_slave_0;
+  wire        rlast_slave_0;
+  wire        rvalid_slave_0;
+  wire        rready_slave_0;
+
+  // APB nic400 interconnect to UART
+  wire [31:0] paddr_slave_1;
+  wire        pselx_slave_1;
+  wire        penable_slave_1;
+  wire        pwrite_slave_1;
+  wire [31:0] prdata_slave_1;
+  wire [31:0] pwdata_slave_1;
+  wire [2:0]  pprot_slave_1;
+  wire [3:0]  pstrb_slave_1;
+  wire        pready_slave_1;
+  wire        pslverr_slave_1;
+
+  // APB nic400 interconnect to SPI
+  wire [31:0] paddr_slave_2;
+  wire        pselx_slave_2;
+  wire        penable_slave_2;
+  wire        pwrite_slave_2;
+  wire [31:0] prdata_slave_2;
+  wire [31:0] pwdata_slave_2;
+  wire [2:0]  pprot_slave_2;
+  wire [3:0]  pstrb_slave_2;
+  wire        pready_slave_2;
+  wire        pslverr_slave_2;
+
+  wire [5:0]   sram0_addr;
+  wire         sram0_cen;
+  wire         sram0_wen;
+  wire [127:0] sram0_wmask;
+  wire [127:0] sram0_wdata;
+  wire [127:0] sram0_rdata;
+
+  wire [5:0]   sram1_addr;
+  wire         sram1_cen;
+  wire         sram1_wen;
+  wire [127:0] sram1_wmask;
+  wire [127:0] sram1_wdata;
+  wire [127:0] sram1_rdata;
+     
+  wire [5:0]   sram2_addr;
+  wire         sram2_cen;
+  wire         sram2_wen;
+  wire [127:0] sram2_wmask;
+  wire [127:0] sram2_wdata;
+  wire [127:0] sram2_rdata;
+
+  wire [5:0]   sram3_addr;
+  wire         sram3_cen;
+  wire         sram3_wen;
+  wire [127:0] sram3_wmask;
+  wire [127:0] sram3_wdata;
+  wire [127:0] sram3_rdata;
+
+  wire [5:0]   sram4_addr;
+  wire         sram4_cen;
+  wire         sram4_wen;
+  wire [127:0] sram4_wmask;
+  wire [127:0] sram4_wdata;
+  wire [127:0] sram4_rdata;
+
+  wire [5:0]   sram5_addr;
+  wire         sram5_cen;
+  wire         sram5_wen;
+  wire [127:0] sram5_wmask;
+  wire [127:0] sram5_wdata;
+  wire [127:0] sram5_rdata;
+
+  wire [5:0]   sram6_addr;
+  wire         sram6_cen;
+  wire         sram6_wen;
+  wire [127:0] sram6_wmask;
+  wire [127:0] sram6_wdata;
+  wire [127:0] sram6_rdata;
+
+  wire [5:0]   sram7_addr;
+  wire         sram7_cen;
+  wire         sram7_wen;
+  wire [127:0] sram7_wmask;
+  wire [127:0] sram7_wdata;
+  wire [127:0] sram7_rdata;
+
+// cpu part signal
+// different student signal, named with their name in the end

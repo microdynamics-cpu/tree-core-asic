@@ -1,0 +1,434 @@
+// NIC400 interconnect
+nic400_bus u_nic400_bus(
+    // Instance: u_cd_c0, Port: master_0
+    .awid_master_0    (awid_master_0),
+    .awaddr_master_0  (awaddr_master_0),
+    .awlen_master_0   (awlen_master_0),
+    .awsize_master_0  (awsize_master_0),
+    .awburst_master_0 (awburst_master_0),
+    .awlock_master_0  (1'b0),
+    .awcache_master_0 (4'b0),
+    .awprot_master_0  (3'b0),
+    .awvalid_master_0 (awvalid_master_0),
+    .awready_master_0 (awready_master_0),
+    .wdata_master_0   (wdata_master_0),
+    .wstrb_master_0   (wstrb_master_0),
+    .wlast_master_0   (wlast_master_0),
+    .wvalid_master_0  (wvalid_master_0),
+    .wready_master_0  (wready_master_0),
+    .bid_master_0     (bid_master_0),
+    .bresp_master_0   (bresp_master_0),
+    .bvalid_master_0  (bvalid_master_0),
+    .bready_master_0  (bready_master_0),
+    .arid_master_0    (arid_master_0),
+    .araddr_master_0  (araddr_master_0),
+    .arlen_master_0   (arlen_master_0),
+    .arsize_master_0  (arsize_master_0),
+    .arburst_master_0 (arburst_master_0),
+    .arlock_master_0  (1'b0),
+    .arcache_master_0 (4'b0),
+    .arprot_master_0  (3'b0),
+    .arvalid_master_0 (arvalid_master_0),
+    .arready_master_0 (arready_master_0),
+    .rid_master_0     (rid_master_0),
+    .rdata_master_0   (rdata_master_0),
+    .rresp_master_0   (rresp_master_0),
+    .rlast_master_0   (rlast_master_0),
+    .rvalid_master_0  (rvalid_master_0),
+    .rready_master_0  (rready_master_0),
+
+    // Instance: u_cd_c0, Port: master_1_m
+    .awid_master_1_m    (awid_frontend),
+    .awaddr_master_1_m  (awaddr_frontend),
+    .awlen_master_1_m   (awlen_frontend),
+    .awsize_master_1_m  (awsize_frontend),
+    .awburst_master_1_m (awburst_frontend),
+    .awlock_master_1_m  (awlock_frontend),
+    .awcache_master_1_m (awcache_frontend),
+    .awprot_master_1_m  (awprot_frontend),
+    .awvalid_master_1_m (awvalid_frontend),
+    .awready_master_1_m (awready_frontend),
+    .wdata_master_1_m   (wdata_frontend),
+    .wstrb_master_1_m   (wstrb_frontend),
+    .wlast_master_1_m   (wlast_frontend),
+    .wvalid_master_1_m  (wvalid_frontend),
+    .wready_master_1_m  (wready_frontend),
+    .bid_master_1_m     (bid_frontend),
+    .bresp_master_1_m   (bresp_frontend),
+    .bvalid_master_1_m  (bvalid_frontend),
+    .bready_master_1_m  (bready_frontend),
+    .arid_master_1_m    (arid_frontend),
+    .araddr_master_1_m  (araddr_frontend),
+    .arlen_master_1_m   (arlen_frontend),
+    .arsize_master_1_m  (arsize_frontend),
+    .arburst_master_1_m (arburst_frontend),
+    .arlock_master_1_m  (arlock_frontend),
+    .arcache_master_1_m (arcache_frontend),
+    .arprot_master_1_m  (arprot_frontend),
+    .arvalid_master_1_m (arvalid_frontend),
+    .arready_master_1_m (arready_frontend),
+    .rid_master_1_m     (rid_frontend),
+    .rdata_master_1_m   (rdata_frontend),
+    .rresp_master_1_m   (rresp_frontend),
+    .rlast_master_1_m   (rlast_frontend),
+    .rvalid_master_1_m  (rvalid_frontend),
+    .rready_master_1_m  (rready_frontend),
+
+    // Instance: u_cd_c1, Port: master_1_s
+    .awid_master_1_s    (awid_frontend_bus),
+    .awaddr_master_1_s  (awaddr_frontend_bus),
+    .awlen_master_1_s   (awlen_frontend_bus),
+    .awsize_master_1_s  (awsize_frontend_bus),
+    .awburst_master_1_s (awburst_frontend_bus),
+    .awlock_master_1_s  (1'b0),
+    .awcache_master_1_s (4'b0),
+    .awprot_master_1_s  (3'b0),
+    .awvalid_master_1_s (awvalid_frontend_bus),
+    .awready_master_1_s (awready_frontend_bus),
+    .wdata_master_1_s   (wdata_frontend_bus),
+    .wstrb_master_1_s   (wstrb_frontend_bus),
+    .wlast_master_1_s   (wlast_frontend_bus),
+    .wvalid_master_1_s  (wvalid_frontend_bus),
+    .wready_master_1_s  (wready_frontend_bus),
+    .bid_master_1_s     (bid_frontend_bus),
+    .bresp_master_1_s   (bresp_frontend_bus),
+    .bvalid_master_1_s  (bvalid_frontend_bus),
+    .bready_master_1_s  (bready_frontend_bus),
+    .arid_master_1_s    (arid_frontend_bus),
+    .araddr_master_1_s  (araddr_frontend_bus),
+    .arlen_master_1_s   (arlen_frontend_bus),
+    .arsize_master_1_s  (arsize_frontend_bus),
+    .arburst_master_1_s (arburst_frontend_bus),
+    .arlock_master_1_s  (1'b0),
+    .arcache_master_1_s (4'b0),
+    .arprot_master_1_s  (3'b0),
+    .arvalid_master_1_s (arvalid_frontend_bus),
+    .arready_master_1_s (arready_frontend_bus),
+    .rid_master_1_s     (rid_frontend_bus),
+    .rdata_master_1_s   (rdata_frontend_bus),
+    .rresp_master_1_s   (rresp_frontend_bus),
+    .rlast_master_1_s   (rlast_frontend_bus),
+    .rvalid_master_1_s  (rvalid_frontend_bus),
+    .rready_master_1_s  (rready_frontend_bus),
+
+    // Instance: u_cd_c1, Port: slave_0
+    .awid_slave_0    (awid_slave_0),
+    .awaddr_slave_0  (awaddr_slave_0),
+    .awlen_slave_0   (awlen_slave_0),
+    .awsize_slave_0  (awsize_slave_0),
+    .awburst_slave_0 (awburst_slave_0),
+    .awlock_slave_0  (awlock_slave_0),
+    .awcache_slave_0 (awcache_slave_0),
+    .awprot_slave_0  (awprot_slave_0),
+    .awvalid_slave_0 (awvalid_slave_0),
+    .awready_slave_0 (awready_slave_0),
+    .wdata_slave_0   (wdata_slave_0),
+    .wstrb_slave_0   (wstrb_slave_0),
+    .wlast_slave_0   (wlast_slave_0),
+    .wvalid_slave_0  (wvalid_slave_0),
+    .wready_slave_0  (wready_slave_0),
+    .bid_slave_0     (bid_slave_0),
+    .bresp_slave_0   (bresp_slave_0),
+    .bvalid_slave_0  (bvalid_slave_0),
+    .bready_slave_0  (bready_slave_0),
+    .arid_slave_0    (arid_slave_0),
+    .araddr_slave_0  (araddr_slave_0),
+    .arlen_slave_0   (arlen_slave_0),
+    .arsize_slave_0  (arsize_slave_0),
+    .arburst_slave_0 (arburst_slave_0),
+    .arlock_slave_0  (arlock_slave_0),
+    .arcache_slave_0 (arcache_slave_0),
+    .arprot_slave_0  (arprot_slave_0),
+    .arvalid_slave_0 (arvalid_slave_0),
+    .arready_slave_0 (arready_slave_0),
+    .rid_slave_0     (rid_slave_0),
+    .rdata_slave_0   (rdata_slave_0),
+    .rresp_slave_0   (rresp_slave_0),
+    .rlast_slave_0   (rlast_slave_0),
+    .rvalid_slave_0  (rvalid_slave_0),
+    .rready_slave_0  (rready_slave_0),
+
+    // Instance: u_cd_c1, Port: slave_1
+    .paddr_slave_1   (paddr_slave_1),
+    .pselx_slave_1   (pselx_slave_1),
+    .penable_slave_1 (penable_slave_1),
+    .pwrite_slave_1  (pwrite_slave_1),
+    .prdata_slave_1  (prdata_slave_1),
+    .pwdata_slave_1  (pwdata_slave_1),
+    .pprot_slave_1   (pprot_slave_1),
+    .pstrb_slave_1   (pstrb_slave_1),
+    .pready_slave_1  (pready_slave_1),
+    .pslverr_slave_1 (pslverr_slave_1),
+
+    // Instance: u_cd_c1, Port: slave_2
+    .paddr_slave_2   (paddr_slave_2),
+    .pselx_slave_2   (pselx_slave_2),
+    .penable_slave_2 (penable_slave_2),
+    .pwrite_slave_2  (pwrite_slave_2),
+    .prdata_slave_2  (prdata_slave_2),
+    .pwdata_slave_2  (pwdata_slave_2),
+    .pprot_slave_2   (pprot_slave_2),
+    .pstrb_slave_2   (pstrb_slave_2),
+    .pready_slave_2  (pready_slave_2),
+    .pslverr_slave_2 (pslverr_slave_2),
+
+    // Non-bus signals
+    .c0clk    (clk_core),
+    .c0resetn (rst_core_n),
+    .c1clk    (clk_peri),
+    .c1clken  (1'b1),
+    .c1resetn (rst_peri_n)
+);
+
+    // cp bridge,link to chiplink "north bridge"
+ChiplinkBridge u_ChiplinkBridge (
+    // use dev clock 
+    .clock                     (clk_peri),
+    .reset                     (~rst_peri_n),
+    .fpga_io_c2b_clk           (chiplink_tx_clk),
+    .fpga_io_c2b_rst           (chiplink_tx_rst),
+    .fpga_io_c2b_send          (chiplink_tx_send),
+    .fpga_io_c2b_data          (chiplink_tx_data),
+    .fpga_io_b2c_clk           (chiplink_rx_clk),
+    .fpga_io_b2c_rst           (chiplink_rx_rst),
+    .fpga_io_b2c_send          (chiplink_rx_send),
+    .fpga_io_b2c_data          (chiplink_rx_data),
+    // mem axi connect
+    .slave_axi4_mem_0_awready  (awready_slave_0),
+    .slave_axi4_mem_0_awvalid  (awvalid_slave_0),
+    .slave_axi4_mem_0_awid     (awid_slave_0),
+    .slave_axi4_mem_0_awaddr   (awaddr_slave_0),
+    .slave_axi4_mem_0_awlen    (awlen_slave_0),
+    .slave_axi4_mem_0_awsize   (awsize_slave_0),
+    .slave_axi4_mem_0_awburst  (awburst_slave_0),
+    .slave_axi4_mem_0_wready   (wready_slave_0),
+    .slave_axi4_mem_0_wvalid   (wvalid_slave_0),
+    .slave_axi4_mem_0_wdata    (wdata_slave_0),
+    .slave_axi4_mem_0_wstrb    (wstrb_slave_0),
+    .slave_axi4_mem_0_wlast    (wlast_slave_0),
+    .slave_axi4_mem_0_bready   (bready_slave_0),
+    .slave_axi4_mem_0_bvalid   (bvalid_slave_0),
+    .slave_axi4_mem_0_bid      (bid_slave_0),
+    .slave_axi4_mem_0_bresp    (bresp_slave_0),
+    .slave_axi4_mem_0_arready  (arready_slave_0),
+    .slave_axi4_mem_0_arvalid  (arvalid_slave_0),
+    .slave_axi4_mem_0_arid     (arid_slave_0),
+    .slave_axi4_mem_0_araddr   (araddr_slave_0),
+    .slave_axi4_mem_0_arlen    (arlen_slave_0),
+    .slave_axi4_mem_0_arsize   (arsize_slave_0),
+    .slave_axi4_mem_0_arburst  (arburst_slave_0),
+    .slave_axi4_mem_0_rready   (rready_slave_0),
+    .slave_axi4_mem_0_rvalid   (rvalid_slave_0),
+    .slave_axi4_mem_0_rid      (rid_slave_0),
+    .slave_axi4_mem_0_rdata    (rdata_slave_0),
+    .slave_axi4_mem_0_rresp    (rresp_slave_0),
+    .slave_axi4_mem_0_rlast    (rlast_slave_0),
+    // mmio axi connect
+    .slave_axi4_mmio_0_awready (),
+    .slave_axi4_mmio_0_awvalid (1'b0),
+    .slave_axi4_mmio_0_awid    (4'b0),
+    .slave_axi4_mmio_0_awaddr  (32'b0),
+    .slave_axi4_mmio_0_awlen   (8'b0),
+    // this line deleted by yuheng
+    //.slave_axi4_mmio_0_awsize(),
+    // this line add by yuheng
+    .slave_axi4_mmio_0_awsize  (3'b0),
+    .slave_axi4_mmio_0_awburst (2'b0),
+    .slave_axi4_mmio_0_wready  (),
+    .slave_axi4_mmio_0_wvalid  (1'b0),
+    .slave_axi4_mmio_0_wdata   (64'b0),
+    .slave_axi4_mmio_0_wstrb   (8'b0),
+    .slave_axi4_mmio_0_wlast   (1'b1),
+    .slave_axi4_mmio_0_bready  (1'b1),
+    .slave_axi4_mmio_0_bvalid  (),
+    .slave_axi4_mmio_0_bid     (),
+    .slave_axi4_mmio_0_bresp   (),
+    .slave_axi4_mmio_0_arready (),
+    .slave_axi4_mmio_0_arvalid (1'b0),
+    .slave_axi4_mmio_0_arid    (4'b0),
+    .slave_axi4_mmio_0_araddr  (32'b0),
+    .slave_axi4_mmio_0_arlen   (8'b0),
+    // this line deleted by yuheng
+    //.slave_axi4_mmio_0_arsize(),
+    // this line add by yuheng
+    .slave_axi4_mmio_0_arsize  (3'b0),
+    .slave_axi4_mmio_0_arburst (2'b0),
+    .slave_axi4_mmio_0_rready  (1'b1),
+    .slave_axi4_mmio_0_rvalid  (),
+    .slave_axi4_mmio_0_rid     (),
+    .slave_axi4_mmio_0_rdata   (),
+    .slave_axi4_mmio_0_rresp   (),
+    .slave_axi4_mmio_0_rlast   (),
+    // dma axi connect
+    .mem_axi4_0_awready        (awready_frontend_bus),
+    .mem_axi4_0_awvalid        (awvalid_frontend_bus),
+    .mem_axi4_0_awid           (awid_frontend_bus),
+    .mem_axi4_0_awaddr         (awaddr_frontend_bus),
+    .mem_axi4_0_awlen          (awlen_frontend_bus),
+    .mem_axi4_0_awsize         (awsize_frontend_bus),
+    .mem_axi4_0_awburst        (awburst_frontend_bus),
+    .mem_axi4_0_wready         (wready_frontend_bus),
+    .mem_axi4_0_wvalid         (wvalid_frontend_bus),
+    .mem_axi4_0_wdata          (wdata_frontend_bus),
+    .mem_axi4_0_wstrb          (wstrb_frontend_bus),
+    .mem_axi4_0_wlast          (wlast_frontend_bus),
+    .mem_axi4_0_bready         (bready_frontend_bus),
+    .mem_axi4_0_bvalid         (bvalid_frontend_bus),
+    .mem_axi4_0_bid            (bid_frontend_bus),
+    .mem_axi4_0_bresp          (bresp_frontend_bus),
+    .mem_axi4_0_arready        (arready_frontend_bus),
+    .mem_axi4_0_arvalid        (arvalid_frontend_bus),
+    .mem_axi4_0_arid           (arid_frontend_bus),
+    .mem_axi4_0_araddr         (araddr_frontend_bus),
+    .mem_axi4_0_arlen          (arlen_frontend_bus),
+    .mem_axi4_0_arsize         (arsize_frontend_bus),
+    .mem_axi4_0_arburst        (arburst_frontend_bus),
+    .mem_axi4_0_rready         (rready_frontend_bus),
+    .mem_axi4_0_rvalid         (rvalid_frontend_bus),
+    .mem_axi4_0_rid            (rid_frontend_bus),
+    .mem_axi4_0_rdata          (rdata_frontend_bus),
+    .mem_axi4_0_rresp          (rresp_frontend_bus),
+    .mem_axi4_0_rlast          (rlast_frontend_bus)
+);
+
+// spi peripheral
+spi_flash 
+#( 
+  .flash_addr_start          (`SPI_FLASH_START),
+  .flash_addr_end            (`SPI_FLASH_END),
+  //0 for spi flash, 1 for spi sdcard
+  .spi_cs_num                (2)
+)
+u_spi_flash
+(
+  .pclk                      (clk_peri),
+  .presetn                   (rst_peri_n),
+  .paddr                     ({paddr_slave_2[`P_ADDR_W-1:2],2'd0}),
+  .psel                      (pselx_slave_2),
+  .penable                   (penable_slave_2),
+  .pwrite                    (pwrite_slave_2),
+  .pwdata                    (pwdata_slave_2),
+  .pwstrb                    (pstrb_slave_2),
+  .prdata                    (prdata_slave_2),
+  .pslverr                   (pslverr_slave_2),
+  .pready                    (pready_slave_2),
+
+  .spi_clk                   (spi_flash_clk),
+  .spi_cs                    (spi_flash_cs),
+  .spi_mosi                  (spi_flash_mosi),
+  .spi_miso                  (spi_flash_miso),
+
+  .spi_irq_out               ()
+);
+
+//uart peripheral
+uart_apb u_uart_apb 
+(
+  .clk                       (clk_peri),
+  .resetn                    (rst_peri_n),
+  .in_psel                   (pselx_slave_1),
+  .in_penable                (penable_slave_1),
+  .in_pprot                  (pprot_slave_1),
+  .in_pready                 (pready_slave_1),
+  .in_pslverr                (pslverr_slave_1),
+  .in_paddr                  (paddr_slave_1),
+  .in_pwrite                 (pwrite_slave_1),
+  .in_prdata                 (prdata_slave_1),
+  .in_pwdata                 (pwdata_slave_1),
+  .in_pstrb                  (pstrb_slave_1),
+
+  .uart_rx                   (uart_rx),
+  .uart_tx                   (uart_tx) 
+);
+
+// SRAM 0 ~ 7
+S011HD1P_X32Y2D128_BW sram0
+(
+  .CLK  (clk_core),
+  .CEN  (sram0_cen),
+  .WEN  (sram0_wen),
+  .BWEN (sram0_wmask),
+  .A    (sram0_addr),
+  .D    (sram0_wdata),
+  .Q    (sram0_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram1
+(
+  .CLK  (clk_core),
+  .CEN  (sram1_cen),
+  .WEN  (sram1_wen),
+  .BWEN (sram1_wmask),
+  .A    (sram1_addr),
+  .D    (sram1_wdata),
+  .Q    (sram1_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram2
+(
+  .CLK  (clk_core),
+  .CEN  (sram2_cen),
+  .WEN  (sram2_wen),
+  .BWEN (sram2_wmask),
+  .A    (sram2_addr),
+  .D    (sram2_wdata),
+  .Q    (sram2_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram3
+(
+  .CLK  (clk_core),
+  .CEN  (sram3_cen),
+  .WEN  (sram3_wen),
+  .BWEN (sram3_wmask),
+  .A    (sram3_addr),
+  .D    (sram3_wdata),
+  .Q    (sram3_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram4
+(
+  .CLK  (clk_core),
+  .CEN  (sram4_cen),
+  .WEN  (sram4_wen),
+  .BWEN (sram4_wmask),
+  .A    (sram4_addr),
+  .D    (sram4_wdata),
+  .Q    (sram4_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram5
+(
+  .CLK  (clk_core),
+  .CEN  (sram5_cen),
+  .WEN  (sram5_wen),
+  .BWEN (sram5_wmask),
+  .A    (sram5_addr),
+  .D    (sram5_wdata),
+  .Q    (sram5_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram6
+(
+  .CLK  (clk_core),
+  .CEN  (sram6_cen),
+  .WEN  (sram6_wen),
+  .BWEN (sram6_wmask),
+  .A    (sram6_addr),
+  .D    (sram6_wdata),
+  .Q    (sram6_rdata)
+);
+
+S011HD1P_X32Y2D128_BW sram7
+(
+  .CLK  (clk_core),
+  .CEN  (sram7_cen),
+  .WEN  (sram7_wen),
+  .BWEN (sram7_wmask),
+  .A    (sram7_addr),
+  .D    (sram7_wdata),
+  .Q    (sram7_rdata)
+);
+
+endmodule
+
