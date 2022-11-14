@@ -1,10 +1,11 @@
-SIM_TOOL ?= iverilog
-RUN_TOOL ?= vvp
+SIM_TOOL    ?= iverilog
+RUN_TOOL    ?= vvp
 WAVE_FORMAT ?=
 # core, soc
-SIM_TYPE ?= soc
-SIM_TOP := $(SIM_TYPE)_tb
+SIM_TYPE  ?= soc
+SIM_TOP   := $(SIM_TYPE)_tb
 TEST_ARGS ?= default_args
+
 ifeq ($(TEST_ARGS), dump_fst_wave)
 WAVE_FORMAT ?= -fst
 endif
@@ -14,10 +15,10 @@ endif
 # WARN_OPTIONS := -Wanachronisms -Wimplicit -Wportbind -Wselect-range -Winfloop
 # WARN_OPTIONS += -Wsensitivity-entire-vector -Wsensitivity-entire-array
 WARN_OPTIONS := -Wall -Winfloop -Wno-timescale
-SIM_OPTIONS := -g2012 -s $(SIM_TOP) $(WARN_OPTIONS)
-INC_LIST :=
-FILE_LIST :=
-SIMV_PROG := simv
+SIM_OPTIONS  := -g2012 -s $(SIM_TOP) $(WARN_OPTIONS)
+INC_LIST     :=
+FILE_LIST    :=
+SIMV_PROG    := simv
 
 
 ifeq ($(SIM_TYPE), soc)
