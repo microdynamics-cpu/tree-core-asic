@@ -37,103 +37,34 @@ module soc_tb ();
 
   assign #1 chiplink_rx_send = chiplink_rx_send1;
   assign #1 chiplink_rx_data = chiplink_rx_data1;
-  asic_top u0_asic_top (
-      .osc_in_pad            (clk),
-      .osc_out_pad           (),
-      .sys_rst_pad           (rst_n),
-      .clk4div_out_pad       (),
-      .spi_clk_pad           (spi_flash_clk),
-      .spi_cs_pad_0          (spi_flash_cs[0]),
-      .spi_cs_pad_1          (spi_flash_cs[1]),
-      .spi_mosi_pad          (spi_flash_mosi),
-      .spi_miso_pad          (spi_flash_miso),
+  asic_top u_asic_top (
+      .osc_in          (clk),
+      .osc_out         (),
+      .sys_rst         (rst_n),
+      .clk_core_4div   (),
+      .spi_flash_clk   (spi_flash_clk),
+      .spi_flash_cs    (spi_flash_cs),
+      .spi_flash_mosi  (spi_flash_mosi),
+      .spi_flash_miso  (spi_flash_miso),
       //uart
-      .uart_rx_pad           (uart_rx),
-      .uart_tx_pad           (uart_tx),
+      .uart_rx         (uart_rx),
+      .uart_tx         (uart_tx),
       //chiplink
-      .chiplink_rx_clk_pad   (chiplink_rx_clk),
-      .chiplink_rx_rst_pad   (chiplink_rx_rst),
-      .chiplink_rx_send_pad  (chiplink_rx_send),
-      .chiplink_rx_data0_pad (chiplink_rx_data[0]),
-      .chiplink_rx_data1_pad (chiplink_rx_data[1]),
-      .chiplink_rx_data2_pad (chiplink_rx_data[2]),
-      .chiplink_rx_data3_pad (chiplink_rx_data[3]),
-      .chiplink_rx_data4_pad (chiplink_rx_data[4]),
-      .chiplink_rx_data5_pad (chiplink_rx_data[5]),
-      .chiplink_rx_data6_pad (chiplink_rx_data[6]),
-      .chiplink_rx_data7_pad (chiplink_rx_data[7]),
-      .chiplink_rx_data8_pad (chiplink_rx_data[8]),
-      .chiplink_rx_data9_pad (chiplink_rx_data[9]),
-      .chiplink_rx_data10_pad(chiplink_rx_data[10]),
-      .chiplink_rx_data11_pad(chiplink_rx_data[11]),
-      .chiplink_rx_data12_pad(chiplink_rx_data[12]),
-      .chiplink_rx_data13_pad(chiplink_rx_data[13]),
-      .chiplink_rx_data14_pad(chiplink_rx_data[14]),
-      .chiplink_rx_data15_pad(chiplink_rx_data[15]),
-      .chiplink_rx_data16_pad(chiplink_rx_data[16]),
-      .chiplink_rx_data17_pad(chiplink_rx_data[17]),
-      .chiplink_rx_data18_pad(chiplink_rx_data[18]),
-      .chiplink_rx_data19_pad(chiplink_rx_data[19]),
-      .chiplink_rx_data20_pad(chiplink_rx_data[20]),
-      .chiplink_rx_data21_pad(chiplink_rx_data[21]),
-      .chiplink_rx_data22_pad(chiplink_rx_data[22]),
-      .chiplink_rx_data23_pad(chiplink_rx_data[23]),
-      .chiplink_rx_data24_pad(chiplink_rx_data[24]),
-      .chiplink_rx_data25_pad(chiplink_rx_data[25]),
-      .chiplink_rx_data26_pad(chiplink_rx_data[26]),
-      .chiplink_rx_data27_pad(chiplink_rx_data[27]),
-      .chiplink_rx_data28_pad(chiplink_rx_data[28]),
-      .chiplink_rx_data29_pad(chiplink_rx_data[29]),
-      .chiplink_rx_data30_pad(chiplink_rx_data[30]),
-      .chiplink_rx_data31_pad(chiplink_rx_data[31]),
-      .chiplink_tx_clk_pad   (chiplink_tx_clk),
-      .chiplink_tx_rst_pad   (chiplink_tx_rst),
-      .chiplink_tx_send_pad  (chiplink_tx_send),
-      .chiplink_tx_data0_pad (chiplink_tx_data[0]),
-      .chiplink_tx_data1_pad (chiplink_tx_data[1]),
-      .chiplink_tx_data2_pad (chiplink_tx_data[2]),
-      .chiplink_tx_data3_pad (chiplink_tx_data[3]),
-      .chiplink_tx_data4_pad (chiplink_tx_data[4]),
-      .chiplink_tx_data5_pad (chiplink_tx_data[5]),
-      .chiplink_tx_data6_pad (chiplink_tx_data[6]),
-      .chiplink_tx_data7_pad (chiplink_tx_data[7]),
-      .chiplink_tx_data8_pad (chiplink_tx_data[8]),
-      .chiplink_tx_data9_pad (chiplink_tx_data[9]),
-      .chiplink_tx_data10_pad(chiplink_tx_data[10]),
-      .chiplink_tx_data11_pad(chiplink_tx_data[11]),
-      .chiplink_tx_data12_pad(chiplink_tx_data[12]),
-      .chiplink_tx_data13_pad(chiplink_tx_data[13]),
-      .chiplink_tx_data14_pad(chiplink_tx_data[14]),
-      .chiplink_tx_data15_pad(chiplink_tx_data[15]),
-      .chiplink_tx_data16_pad(chiplink_tx_data[16]),
-      .chiplink_tx_data17_pad(chiplink_tx_data[17]),
-      .chiplink_tx_data18_pad(chiplink_tx_data[18]),
-      .chiplink_tx_data19_pad(chiplink_tx_data[19]),
-      .chiplink_tx_data20_pad(chiplink_tx_data[20]),
-      .chiplink_tx_data21_pad(chiplink_tx_data[21]),
-      .chiplink_tx_data22_pad(chiplink_tx_data[22]),
-      .chiplink_tx_data23_pad(chiplink_tx_data[23]),
-      .chiplink_tx_data24_pad(chiplink_tx_data[24]),
-      .chiplink_tx_data25_pad(chiplink_tx_data[25]),
-      .chiplink_tx_data26_pad(chiplink_tx_data[26]),
-      .chiplink_tx_data27_pad(chiplink_tx_data[27]),
-      .chiplink_tx_data28_pad(chiplink_tx_data[28]),
-      .chiplink_tx_data29_pad(chiplink_tx_data[29]),
-      .chiplink_tx_data30_pad(chiplink_tx_data[30]),
-      .chiplink_tx_data31_pad(chiplink_tx_data[31]),
-      //pll
-      .pll_cfg_pad0          (pll_cfg[0]),
-      .pll_cfg_pad1          (pll_cfg[1]),
-      .pll_cfg_pad2          (pll_cfg[2]),
-      .clk_sel_pad           (clk_sel),
-      //core
-      .core_dip_pad0         (core_dip[0]),
-      .core_dip_pad1         (core_dip[1]),
-      .core_dip_pad2         (core_dip[2]),
-      .core_dip_pad3         (core_dip[3]),
-      .core_dip_pad4         (core_dip[4]),
-      //interrupt
-      .interrupt_pad         (interrupt)
+      .chiplink_rx_clk (chiplink_rx_clk),
+      .chiplink_rx_rst (chiplink_rx_rst),
+      .chiplink_rx_send(chiplink_rx_send),
+      .chiplink_rx_data(chiplink_rx_data),
+      .chiplink_tx_clk (chiplink_tx_clk),
+      .chiplink_tx_rst (chiplink_tx_rst),
+      .chiplink_tx_send(chiplink_tx_send),
+      .chiplink_tx_data(chiplink_tx_data),
+      // pll
+      .pll_cfg         (pll_cfg),
+      .clk_sel         (clk_sel),
+      // core
+      .core_dip        (core_dip),
+      // interrupt
+      .interrupt       (interrupt)
   );
 
 
@@ -197,8 +128,8 @@ module soc_tb ();
   wire [ 1:0] mmio_axi4_0_rresp;
   wire        mmio_axi4_0_rlast;
 
-  //chiplink sim connect to dual chiplink
-  ChiplinkTop u0_Chiplink_DualTop (
+  // chiplink sim connect to dual chiplink
+  ChiplinkTop u_Chiplink_DualTop (
       .clock                         (clk),
       .reset                         (~rst_n),
       .fpga_io_c2b_clk               (chiplink_rx_clk),
@@ -209,7 +140,7 @@ module soc_tb ();
       .fpga_io_b2c_rst               (chiplink_tx_rst),
       .fpga_io_b2c_send              (chiplink_tx_send),
       .fpga_io_b2c_data              (chiplink_tx_data),
-      //mem
+      // mem
       .mem_axi4_0_awready            (io_axi4_0_awready),
       .mem_axi4_0_awvalid            (io_axi4_0_awvalid),
       .mem_axi4_0_awid               (io_axi4_0_awid),
@@ -249,7 +180,7 @@ module soc_tb ();
       .mem_axi4_0_rdata              (io_axi4_0_rdata),
       .mem_axi4_0_rresp              (io_axi4_0_rresp),
       .mem_axi4_0_rlast              (io_axi4_0_rlast),
-      //mmio
+      // mmio
       .mmio_axi4_0_awready           (1'b1),
       .mmio_axi4_0_awvalid           (),
       .mmio_axi4_0_awid              (),
@@ -287,7 +218,7 @@ module soc_tb ();
       .mmio_axi4_0_rdata             (64'b0),
       .mmio_axi4_0_rresp             (2'b0),
       .mmio_axi4_0_rlast             (1'b1),
-      //dma
+      // dma
       .l2_frontend_bus_axi4_0_awready(),
       .l2_frontend_bus_axi4_0_awvalid(1'b0),
       .l2_frontend_bus_axi4_0_awid   (17'b0),
@@ -319,7 +250,7 @@ module soc_tb ();
       .l2_frontend_bus_axi4_0_rlast  ()
 
   );
-  //sim mem
+  // sim mem
   SimAXIMem simmem (
       .clock            (clk),
       .reset            (~rst_n),
@@ -354,7 +285,7 @@ module soc_tb ();
       .io_axi4_0_rlast  (io_axi4_0_rlast)
   );
 
-  N25Qxxx u0_spi_flash (
+  N25Qxxx u_spi_flash (
       .C_       (spi_flash_clk),
       .S        (spi_flash_cs[0]),
       .DQ0      (spi_flash_mosi),
@@ -364,30 +295,30 @@ module soc_tb ();
       .Vcc      ('d3000)
   );
 
-  tty #(115200, 0) u0_tty (
-      .STX(uart_rx),  //output
+  tty #(115200, 0) u_tty (
+      .STX(uart_rx),
       .SRX(uart_tx)
   );
   initial begin
     clk      = 0;
     rst_n    = 0;
     core_dip = 5'd2;
-    if ($test$plusargs("cfg_001"))  //50M
+    if ($test$plusargs("cfg_001"))  // 50M
       pll_cfg = 3'b001;
-    else if ($test$plusargs("cfg_010"))  //100M
+    else if ($test$plusargs("cfg_010"))  // 100M
       pll_cfg = 3'b010;
-    else if ($test$plusargs("cfg_011"))  //150M
+    else if ($test$plusargs("cfg_011"))  // 150M
       pll_cfg = 3'b011;
-    else if ($test$plusargs("cfg_100"))  //200M
+    else if ($test$plusargs("cfg_100"))  // 200M
       pll_cfg = 3'b100;
-    else if ($test$plusargs("cfg_101"))  //250M
+    else if ($test$plusargs("cfg_101"))  // 250M
       pll_cfg = 3'b101;
-    else if ($test$plusargs("cfg_110"))  //300M
+    else if ($test$plusargs("cfg_110"))  // 300M
       pll_cfg = 3'b110;
-    else if ($test$plusargs("cfg_111"))  //350M
+    else if ($test$plusargs("cfg_111"))  // 350M
       pll_cfg = 3'b111;
-    else pll_cfg = 3'b000;  //25M
-    clk_sel   = 1'b1;
+    else pll_cfg = 3'b000;  // 25M
+    clk_sel   = 1'b1; // 1: pll 0: clk(25Mhz)
     interrupt = 1'b0;
     //#10
     repeat (4096) @(posedge clk);
@@ -399,9 +330,9 @@ module soc_tb ();
     //#10.000 clk <= ~clk; //50MHz
     // #5.000 clk <= ~clk; //100MHz
   end
-  
+
   // ns
-  localparam SIMU_TIME = 10000000;
+  localparam SIMU_TIME = 8000000;
   initial begin
     #SIMU_TIME $finish;
   end
