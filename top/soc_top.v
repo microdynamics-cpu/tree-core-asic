@@ -2,59 +2,32 @@
 `include "global_define.v"
 
 module soc_top (
-    // cpu clock in
-    clk_core,
-    rst_core_n,
-    // spiFlash
-    clk_peri,
-    rst_peri_n,
+    input                             clk_core,
+    input                             rst_core_n,
+    // spi flash
+    input                             rst_peri_n,
+    input                             clk_peri,
     // 0 for spi flash, 1 for spi sdcard
-    spi_flash_cs,
-    spi_flash_clk,
-    spi_flash_mosi,
-    spi_flash_miso,
+    output                            spi_flash_clk,
+    output [                     1:0] spi_flash_cs,
+    output                            spi_flash_mosi,
+    input                             spi_flash_miso,
     // uart
-    uart_rx,
-    uart_tx,
+    input                             uart_rx,
+    output                            uart_tx,
     // chiplink
-    chiplink_rx_clk,
-    chiplink_rx_rst,
-    chiplink_rx_send,
-    chiplink_rx_data,
-    chiplink_tx_clk,
-    chiplink_tx_rst,
-    chiplink_tx_send,
-    chiplink_tx_data,
-    //cpu core chose
-    core_dip,
-    // interrupt
-    interrupt
+    input                             chiplink_rx_clk,
+    input                             chiplink_rx_rst,
+    input                             chiplink_rx_send,
+    input  [`chiplink_data_w - 1 : 0] chiplink_rx_data,
+    output                            chiplink_tx_clk,
+    output                            chiplink_tx_rst,
+    output                            chiplink_tx_send,
+    output [`chiplink_data_w - 1 : 0] chiplink_tx_data,
+
+    input [4:0] core_dip,
+    input       interrupt
 );
-
-  input clk_core;
-  input rst_core_n;
-  // spi flash
-  input rst_peri_n;
-  input clk_peri;
-  output spi_flash_clk;
-  output [1:0] spi_flash_cs;
-  output spi_flash_mosi;
-  input spi_flash_miso;
-  // uart
-  input uart_rx;
-  output uart_tx;
-  // chiplink
-  input chiplink_rx_clk;
-  input chiplink_rx_rst;
-  input chiplink_rx_send;
-  input [`chiplink_data_w - 1 : 0] chiplink_rx_data;
-  output chiplink_tx_clk;
-  output chiplink_tx_rst;
-  output chiplink_tx_send;
-  output [`chiplink_data_w - 1 : 0] chiplink_tx_data;
-
-  input [4:0] core_dip;
-  input interrupt;
 
   // axi cpu
   wire [           3:0] awid_master_0;
@@ -1276,7 +1249,7 @@ module soc_top (
 
   // cp bridge,link to chiplink "north bridge"
   ChiplinkBridge u_ChiplinkBridge (
-      // use dev clock 
+      // use dev clock
       .clock                    (clk_peri),
       .reset                    (~rst_peri_n),
       .fpga_io_c2b_clk          (chiplink_tx_clk),
@@ -1317,42 +1290,7 @@ module soc_top (
       .slave_axi4_mem_0_rdata   (rdata_slave_0),
       .slave_axi4_mem_0_rresp   (rresp_slave_0),
       .slave_axi4_mem_0_rlast   (rlast_slave_0),
-      // mmio axi connect
-      .slave_axi4_mmio_0_awready(),
-      .slave_axi4_mmio_0_awvalid(1'b0),
-      .slave_axi4_mmio_0_awid   (4'b0),
-      .slave_axi4_mmio_0_awaddr (32'b0),
-      .slave_axi4_mmio_0_awlen  (8'b0),
-      // this line deleted by yuheng
-      //.slave_axi4_mmio_0_awsize(),
-      // this line add by yuheng
-      .slave_axi4_mmio_0_awsize (3'b0),
-      .slave_axi4_mmio_0_awburst(2'b0),
-      .slave_axi4_mmio_0_wready (),
-      .slave_axi4_mmio_0_wvalid (1'b0),
-      .slave_axi4_mmio_0_wdata  (64'b0),
-      .slave_axi4_mmio_0_wstrb  (8'b0),
-      .slave_axi4_mmio_0_wlast  (1'b1),
-      .slave_axi4_mmio_0_bready (1'b1),
-      .slave_axi4_mmio_0_bvalid (),
-      .slave_axi4_mmio_0_bid    (),
-      .slave_axi4_mmio_0_bresp  (),
-      .slave_axi4_mmio_0_arready(),
-      .slave_axi4_mmio_0_arvalid(1'b0),
-      .slave_axi4_mmio_0_arid   (4'b0),
-      .slave_axi4_mmio_0_araddr (32'b0),
-      .slave_axi4_mmio_0_arlen  (8'b0),
-      // this line deleted by yuheng
-      //.slave_axi4_mmio_0_arsize(),
-      // this line add by yuheng
-      .slave_axi4_mmio_0_arsize (3'b0),
-      .slave_axi4_mmio_0_arburst(2'b0),
-      .slave_axi4_mmio_0_rready (1'b1),
-      .slave_axi4_mmio_0_rvalid (),
-      .slave_axi4_mmio_0_rid    (),
-      .slave_axi4_mmio_0_rdata  (),
-      .slave_axi4_mmio_0_rresp  (),
-      .slave_axi4_mmio_0_rlast  (),
+
       // dma axi connect
       .mem_axi4_0_awready       (awready_frontend_bus),
       .mem_axi4_0_awvalid       (awvalid_frontend_bus),
