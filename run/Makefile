@@ -64,11 +64,11 @@ update-filelist:
 
 comp:
 	@mkdir -p build/$(SIM_TYPE)
-	(${SIM_TOOL} $(SIM_OPTIONS) $(FILE_LIST) $(INC_LIST) ../tb/$(SIM_TOP).v -o $(SIMV_PROG) || exit -1) 2>&1 | tee compile.log
+	($(SIM_TOOL) $(SIM_OPTIONS) $(FILE_LIST) $(INC_LIST) ../tb/$(SIM_TOP).v -o $(SIMV_PROG) || exit -1) 2>&1 | tee compile.log
 
 run: comp
 	@../script/perf.py -f
-	vvp -l run.log -n $(SIMV_PROG) +$(TEST_ARGS) $(WAVE_FORMAT)
+	$(RUN_TOOL) -l run.log -n $(SIMV_PROG) +$(TEST_ARGS) $(WAVE_FORMAT)
 	@../script/perf.py -s
 
 clean:
