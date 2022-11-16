@@ -1,27 +1,48 @@
 # this is a config for soc generator.
-
-title = "SoC Inst Name"
+name    = "SoC Inst Name"
+version = ""
+author  = ""
 
 [core]
+dir = "cpu"
 name = "ysyx_xxxxxx"
 
 [rcg]
-pll_num = 2
+dir = "rcg"
+pll_num = 1
+freq_list = [25, 50, 100, 150, 200, 250, 300]
 
 [bus]
-mst_num = 2
-slv_num = 3
+dir = "bus"
+[bus.mst]
+num = 1
+[[bus.mst.list]]
+name = "core_master"
+prot = "axi4"
+[bus.slv]
+num = 3
+[[bus.slv.list]]
+name = "uart_slave"
+prot = "apb"
+burst = false
+[[bus.slv.list]]
+name = "spi_slave"
+prot = "apb"
+burst = false
+[[bus.slv.list]]
+name = "chiplink_slave"
+prot = "axi4"
 
 [ip]
-
+dir = "perip"
 # tag and commit field is optional
 [ip.spi]
-repo = "ysyxIP"
+repo = "https://github.com/OSCPU/ysyxIP"
 branch = "main"
 tag = 0.02
 commit = "bd8511"
 [ip.uart]
-repo = "ysyxIP"
+repo = "https://github.com/OSCPU/ysyxIP"
 branch = "main"
 tag = 0.05
 commit = "fb6f01"
