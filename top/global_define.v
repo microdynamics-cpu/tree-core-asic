@@ -2,7 +2,7 @@
 // gpio
 `define GPIO_W 4
 // chiplink
-`define chiplink_data_w 8
+`define chiplink_data_w 32
 // APB
 `define P_ADDR_W 32
 `define P_DATA_W 32 

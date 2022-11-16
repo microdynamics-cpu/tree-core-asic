@@ -7,10 +7,10 @@ SIM_TOP   := $(SIM_TYPE)_tb
 TEST_ARGS ?= default_args
 
 ifeq ($(TEST_ARGS), dump_fst_wave)
-WAVE_FORMAT ?= -fst
+WAVE_FORMAT := -fst
 endif
 ifeq ($(TEST_ARGS), dump_vcd_wave)
-WAVE_FORMAT ?= -vcd
+WAVE_FORMAT := -vcd
 endif
 # WARN_OPTIONS := -Wanachronisms -Wimplicit -Wportbind -Wselect-range -Winfloop
 # WARN_OPTIONS += -Wsensitivity-entire-vector -Wsensitivity-entire-array

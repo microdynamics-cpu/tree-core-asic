@@ -1290,7 +1290,42 @@ module soc_top (
       .slave_axi4_mem_0_rdata   (rdata_slave_0),
       .slave_axi4_mem_0_rresp   (rresp_slave_0),
       .slave_axi4_mem_0_rlast   (rlast_slave_0),
-
+      // mmio axi connect
+      .slave_axi4_mmio_0_awready(),
+      .slave_axi4_mmio_0_awvalid(1'b0),
+      .slave_axi4_mmio_0_awid   (4'b0),
+      .slave_axi4_mmio_0_awaddr (32'b0),
+      .slave_axi4_mmio_0_awlen  (8'b0),
+      // this line deleted by yuheng
+      //.slave_axi4_mmio_0_awsize(),
+      // this line add by yuheng
+      .slave_axi4_mmio_0_awsize (3'b0),
+      .slave_axi4_mmio_0_awburst(2'b0),
+      .slave_axi4_mmio_0_wready (),
+      .slave_axi4_mmio_0_wvalid (1'b0),
+      .slave_axi4_mmio_0_wdata  (64'b0),
+      .slave_axi4_mmio_0_wstrb  (8'b0),
+      .slave_axi4_mmio_0_wlast  (1'b1),
+      .slave_axi4_mmio_0_bready (1'b1),
+      .slave_axi4_mmio_0_bvalid (),
+      .slave_axi4_mmio_0_bid    (),
+      .slave_axi4_mmio_0_bresp  (),
+      .slave_axi4_mmio_0_arready(),
+      .slave_axi4_mmio_0_arvalid(1'b0),
+      .slave_axi4_mmio_0_arid   (4'b0),
+      .slave_axi4_mmio_0_araddr (32'b0),
+      .slave_axi4_mmio_0_arlen  (8'b0),
+      // this line deleted by yuheng
+      //.slave_axi4_mmio_0_arsize(),
+      // this line add by yuheng
+      .slave_axi4_mmio_0_arsize (3'b0),
+      .slave_axi4_mmio_0_arburst(2'b0),
+      .slave_axi4_mmio_0_rready (1'b1),
+      .slave_axi4_mmio_0_rvalid (),
+      .slave_axi4_mmio_0_rid    (),
+      .slave_axi4_mmio_0_rdata  (),
+      .slave_axi4_mmio_0_rresp  (),
+      .slave_axi4_mmio_0_rlast  (),
       // dma axi connect
       .mem_axi4_0_awready       (awready_frontend_bus),
       .mem_axi4_0_awvalid       (awvalid_frontend_bus),
