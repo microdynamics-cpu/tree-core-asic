@@ -9,7 +9,8 @@ module rcg (
     output       rst_peri_n,
     output       clk_core_4div
 );
-  `define RST_CNT_END 20'h1ffff
+  // `define RST_CNT_END 20'h1ffff
+  `define RST_CNT_END 20'hf
   wire        pll_clk;
   wire        rst_gen;
 

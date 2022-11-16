@@ -316,7 +316,8 @@ module soc_tb ();
     clk_sel   = 1'b1;  // 1: pll 0: clk(25Mhz)
     interrupt = 1'b0;
     //#10
-    repeat (4096) @(posedge clk);
+    // repeat (4096) @(posedge clk);
+    repeat (32) @(posedge clk);
     #100 rst_n = 1;
   end
 
@@ -328,8 +329,8 @@ module soc_tb ();
 
   // unit: ns
   initial begin
-    if ($test$plusargs("hello_flash")) #8000000 $finish;
-    else if ($test$plusargs("memtest_ram")) #40000000 $finish;
+    if ($test$plusargs("hello_flash")) #4000000 $finish;
+    else if ($test$plusargs("memtest_ram")) #32000000 $finish;
     else if ($test$plusargs("rtthread_sdram")) #16000000 $finish;
     else #8000000 $finish;
   end

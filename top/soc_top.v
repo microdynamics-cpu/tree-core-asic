@@ -2,32 +2,59 @@
 `include "global_define.v"
 
 module soc_top (
-    input                             clk_core,
-    input                             rst_core_n,
-    // spi flash
-    input                             rst_peri_n,
-    input                             clk_peri,
+    // cpu clock in
+    clk_core,
+    rst_core_n,
+    // spiFlash
+    clk_peri,
+    rst_peri_n,
     // 0 for spi flash, 1 for spi sdcard
-    output                            spi_flash_clk,
-    output [                     1:0] spi_flash_cs,
-    output                            spi_flash_mosi,
-    input                             spi_flash_miso,
+    spi_flash_cs,
+    spi_flash_clk,
+    spi_flash_mosi,
+    spi_flash_miso,
     // uart
-    input                             uart_rx,
-    output                            uart_tx,
+    uart_rx,
+    uart_tx,
     // chiplink
-    input                             chiplink_rx_clk,
-    input                             chiplink_rx_rst,
-    input                             chiplink_rx_send,
-    input  [`chiplink_data_w - 1 : 0] chiplink_rx_data,
-    output                            chiplink_tx_clk,
-    output                            chiplink_tx_rst,
-    output                            chiplink_tx_send,
-    output [`chiplink_data_w - 1 : 0] chiplink_tx_data,
-
-    input [4:0] core_dip,
-    input       interrupt
+    chiplink_rx_clk,
+    chiplink_rx_rst,
+    chiplink_rx_send,
+    chiplink_rx_data,
+    chiplink_tx_clk,
+    chiplink_tx_rst,
+    chiplink_tx_send,
+    chiplink_tx_data,
+    //cpu core chose
+    core_dip,
+    // interrupt
+    interrupt
 );
+
+  input clk_core;
+  input rst_core_n;
+  // spi flash
+  input rst_peri_n;
+  input clk_peri;
+  output spi_flash_clk;
+  output [1:0] spi_flash_cs;
+  output spi_flash_mosi;
+  input spi_flash_miso;
+  // uart
+  input uart_rx;
+  output uart_tx;
+  // chiplink
+  input chiplink_rx_clk;
+  input chiplink_rx_rst;
+  input chiplink_rx_send;
+  input [`chiplink_data_w - 1 : 0] chiplink_rx_data;
+  output chiplink_tx_clk;
+  output chiplink_tx_rst;
+  output chiplink_tx_send;
+  output [`chiplink_data_w - 1 : 0] chiplink_tx_data;
+
+  input [4:0] core_dip;
+  input interrupt;
 
   // axi cpu
   wire [           3:0] awid_master_0;
@@ -1249,7 +1276,7 @@ module soc_top (
 
   // cp bridge,link to chiplink "north bridge"
   ChiplinkBridge u_ChiplinkBridge (
-      // use dev clock
+      // use dev clock 
       .clock                    (clk_peri),
       .reset                    (~rst_peri_n),
       .fpga_io_c2b_clk          (chiplink_tx_clk),
