@@ -1,5 +1,4 @@
 <p align="center">
-    <!-- <img width="200px" src="./.images/tree_core_logo.svg" align="center" alt="Tree Core CPU" /> -->
     <h2 align="center">TreeCore ASIC: An Universal Simulation and Verification Environment for ASIC</h2>
 </p>
 <p align="center">
